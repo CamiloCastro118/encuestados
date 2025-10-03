@@ -1,0 +1,92 @@
+<app-navbar></app-navbar>
+
+<div class="home-container">
+  <div class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Sistema de Encuestas</h1>
+      <p class="hero-subtitle">Plataforma integral para la gestión y análisis de encuestas institucionales</p>
+      
+      <div class="hero-actions">
+        <button class="btn-primary large" (click)="navegarA('/encuestas')">
+          📋 Ver Encuestas Disponibles
+        </button>
+        <button class="btn-secondary large" (click)="navegarA('/login')">
+          🔐 Iniciar Sesión
+        </button>
+      </div>
+    </div>
+    
+    <div class="hero-visual">
+      <div class="stats-preview">
+        <div class="stat-item">
+          <div class="stat-number">85%</div>
+          <div class="stat-label">Satisfacción</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">1,234</div>
+          <div class="stat-label">Respuestas</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">15</div>
+          <div class="stat-label">Encuestas Activas</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="features-section">
+    <div class="container">
+      <h2 class="section-title">Características Principales</h2>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Dashboard Interactivo</h3>
+          <p>Visualiza métricas y estadísticas en tiempo real con gráficos intuitivos y fáciles de interpretar.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">📋</div>
+          <h3>Gestión de Encuestas</h3>
+          <p>Crea, administra y despliega encuestas personalizadas con múltiples tipos de preguntas.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">👥</div>
+          <h3>Gestión de Usuarios</h3>
+          <p>Sistema de roles completo para estudiantes, docentes, directivos y administradores.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">📈</div>
+          <h3>Análisis Avanzado</h3>
+          <p>Reportes detallados y análisis de tendencias para la toma de decisiones informadas.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>Seguridad</h3>
+          <p>Protección de datos y autenticación segura para garantizar la confidencialidad.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <h3>Responsive</h3>
+          <p>Acceso desde cualquier dispositivo con interfaz optimizada para móviles y tablets.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>¿Listo para comenzar?</h2>
+        <p>Únete a nuestra plataforma y contribuye con tu opinión para mejorar la experiencia educativa.</p>
+        <button class="btn-primary large" (click)="navegarA('/encuestas')">
+          Comenzar Ahora
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

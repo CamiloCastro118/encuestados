@@ -1,0 +1,257 @@
+<div class="admin-container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h3>Panel Admin</h3>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <a 
+        (click)="cambiarVista('dashboard')" 
+        [class.active]="vistaActual === 'dashboard'"
+        class="nav-item">
+        📊 Dashboard
+      </a>
+      <a 
+        (click)="cambiarVista('usuarios')" 
+        [class.active]="vistaActual === 'usuarios'"
+        class="nav-item">
+        👥 Usuarios
+      </a>
+      <a 
+        (click)="cambiarVista('encuestas')" 
+        [class.active]="vistaActual === 'encuestas'"
+        class="nav-item">
+        📋 Encuestas
+      </a>
+      <a 
+        (click)="cambiarVista('reportes')" 
+        [class.active]="vistaActual === 'reportes'"
+        class="nav-item">
+        📈 Reportes
+      </a>
+    </nav>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="main-content">
+    
+    <!-- Dashboard -->
+    <div *ngIf="vistaActual === 'dashboard'" class="dashboard">
+      <h2>Dashboard Administrativo</h2>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">{{ estadisticas.totalUsuarios }}</div>
+          <div class="stat-label">Total Usuarios</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">{{ estadisticas.usuariosActivos }}</div>
+          <div class="stat-label">Usuarios Activos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">{{ estadisticas.totalEncuestas }}</div>
+          <div class="stat-label">Total Encuestas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">{{ estadisticas.encuestasActivas }}</div>
+          <div class="stat-label">Encuestas Activas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">{{ estadisticas.respuestasHoy }}</div>
+          <div class="stat-label">Respuestas Hoy</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">{{ estadisticas.respuestasTotal }}</div>
+          <div class="stat-label">Total Respuestas</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gestión de Usuarios -->
+    <div *ngIf="vistaActual === 'usuarios'" class="usuarios-section">
+      <div class="section-header">
+        <h2>Gestión de Usuarios</h2>
+        <button class="btn-primary" (click)="abrirFormularioUsuario()">+ Nuevo Usuario</button>
+      </div>
+      
+      <div class="filters">
+        <input 
+          type="text" 
+          [(ngModel)]="filtroUsuarios" 
+          placeholder="Buscar usuarios..."
+          class="search-input">
+      </div>
+      
+      <div class="usuarios-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Rol</th>
+              <th>Fecha Registro</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let usuario of usuariosFiltrados">
+              <td>{{ usuario.nombre }}</td>
+              <td>{{ usuario.email }}</td>
+              <td>
+                <span class="rol-badge" [class]="usuario.rol">{{ usuario.rol }}</span>
+              </td>
+              <td>{{ usuario.fechaRegistro | date:'dd/MM/yyyy' }}</td>
+              <td>
+                <span class="estado-badge" [class.activo]="usuario.activo" [class.inactivo]="!usuario.activo">
+                  {{ usuario.activo ? 'Activo' : 'Inactivo' }}
+                </span>
+              </td>
+              <td class="acciones">
+                <button 
+                  class="btn-toggle" 
+                  (click)="toggleUsuarioActivo(usuario)"
+                  [class.activar]="!usuario.activo"
+                  [class.desactivar]="usuario.activo">
+                  {{ usuario.activo ? 'Desactivar' : 'Activar' }}
+                </button>
+                <button class="btn-danger" (click)="eliminarUsuario(usuario)">Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Gestión de Encuestas -->
+    <div *ngIf="vistaActual === 'encuestas'" class="encuestas-section">
+      <div class="section-header">
+        <h2>Gestión de Encuestas</h2>
+      </div>
+      
+      <div class="filters">
+        <input 
+          type="text" 
+          [(ngModel)]="filtroEncuestas" 
+          placeholder="Buscar encuestas..."
+          class="search-input">
+      </div>
+      
+      <div class="encuestas-grid">
+        <div *ngFor="let encuesta of encuestasFiltradas" class="encuesta-admin-card">
+          <div class="card-header">
+            <h4>{{ encuesta.titulo }}</h4>
+            <span class="estado-badge" [class]="encuesta.estado">{{ encuesta.estado }}</span>
+          </div>
+          
+          <p class="descripcion">{{ encuesta.descripcion }}</p>
+          
+          <div class="card-info">
+            <div class="info-item">
+              <strong>Creada:</strong> {{ encuesta.fechaCreacion | date:'dd/MM/yyyy' }}
+            </div>
+            <div class="info-item">
+              <strong>Límite:</strong> {{ encuesta.fechaLimite | date:'dd/MM/yyyy' }}
+            </div>
+            <div class="info-item">
+              <strong>Respuestas:</strong> {{ encuesta.respuestas }}
+            </div>
+          </div>
+          
+          <div class="card-actions">
+            <select 
+              [value]="encuesta.estado" 
+              (change)="cambiarEstadoEncuesta(encuesta, $any($event.target).value)"
+              class="estado-select">
+              <option value="borrador">Borrador</option>
+              <option value="activa">Activa</option>
+              <option value="finalizada">Finalizada</option>
+            </select>
+            <button class="btn-danger" (click)="eliminarEncuesta(encuesta)">Eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reportes -->
+    <div *ngIf="vistaActual === 'reportes'" class="reportes-section">
+      <h2>Reportes y Analytics</h2>
+      
+      <div class="reportes-grid">
+        <div class="reporte-card">
+          <h4>Reporte de Usuarios</h4>
+          <p>Estadísticas detalladas de usuarios registrados y su actividad</p>
+          <button class="btn-primary" (click)="exportarReportes()">Generar Reporte</button>
+        </div>
+        
+        <div class="reporte-card">
+          <h4>Reporte de Encuestas</h4>
+          <p>Análisis de encuestas creadas, respuestas y tendencias</p>
+          <button class="btn-primary" (click)="exportarReportes()">Generar Reporte</button>
+        </div>
+        
+        <div class="reporte-card">
+          <h4>Reporte de Actividad</h4>
+          <p>Seguimiento de la actividad del sistema en tiempo real</p>
+          <button class="btn-primary" (click)="exportarReportes()">Generar Reporte</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para nuevo usuario -->
+<div *ngIf="mostrarFormUsuario" class="modal-overlay" (click)="cancelarFormUsuario()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Nuevo Usuario</h3>
+      <button class="btn-close" (click)="cancelarFormUsuario()">×</button>
+    </div>
+    
+    <form (ngSubmit)="guardarUsuario()" #userForm="ngForm" class="user-form">
+      <div class="form-group">
+        <label for="nombre">Nombre completo</label>
+        <input 
+          type="text" 
+          id="nombre" 
+          name="nombre"
+          [(ngModel)]="nuevoUsuario.nombre" 
+          required 
+          class="form-control">
+      </div>
+      
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email"
+          [(ngModel)]="nuevoUsuario.email" 
+          required 
+          class="form-control">
+      </div>
+      
+      <div class="form-group">
+        <label for="rol">Rol</label>
+        <select 
+          id="rol" 
+          name="rol"
+          [(ngModel)]="nuevoUsuario.rol" 
+          required 
+          class="form-control">
+          <option value="">Seleccionar rol</option>
+          <option value="estudiante">Estudiante</option>
+          <option value="docente">Docente</option>
+          <option value="directivo">Directivo</option>
+          <option value="administrador">Administrador</option>
+        </select>
+      </div>
+      
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" (click)="cancelarFormUsuario()">Cancelar</button>
+        <button type="submit" class="btn-primary" [disabled]="!userForm.form.valid">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>

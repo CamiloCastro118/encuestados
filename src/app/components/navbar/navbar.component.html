@@ -1,0 +1,130 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    
+    <!-- Logo y título -->
+    <div class="navbar-brand" (click)="navigate('/home')">
+      <div class="brand-icon">📊</div>
+      <span class="brand-text">Sistema de Encuestas</span>
+    </div>
+
+    <!-- Menú desktop -->
+    <div class="navbar-menu desktop-menu">
+      <a 
+        *ngFor="let item of visibleMenuItems" 
+        (click)="navigate(item.route)"
+        [class.active]="isActiveRoute(item.route)"
+        class="menu-item">
+        <span class="item-icon">{{ item.icon }}</span>
+        <span class="item-text">{{ item.label }}</span>
+      </a>
+    </div>
+
+    <!-- Usuario y menú móvil -->
+    <div class="navbar-actions">
+      
+      <!-- Información del usuario -->
+      <div class="user-info">
+        <div class="user-avatar">
+          <img [src]="currentUser.avatar" [alt]="currentUser.nombre">
+        </div>
+        <div class="user-details">
+          <div class="user-name">{{ currentUser.nombre }}</div>
+          <div class="user-role">
+            <span class="role-icon">{{ getRoleIcon(currentUser.rol) }}</span>
+            {{ getRoleDisplayName(currentUser.rol) }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Menú desplegable del usuario -->
+      <div class="user-menu">
+        <button class="user-menu-btn" (click)="toggleMenu()">
+          <span class="menu-dots">⋮</span>
+        </button>
+        
+        <div class="user-dropdown" [class.open]="isMenuOpen">
+          <div class="dropdown-header">
+            <div class="dropdown-user">
+              <img [src]="currentUser.avatar" [alt]="currentUser.nombre" class="dropdown-avatar">
+              <div>
+                <div class="dropdown-name">{{ currentUser.nombre }}</div>
+                <div class="dropdown-role">{{ getRoleDisplayName(currentUser.rol) }}</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="dropdown-divider"></div>
+          
+          <div class="dropdown-menu">
+            <a 
+              *ngFor="let item of visibleMenuItems" 
+              (click)="navigate(item.route)"
+              [class.active]="isActiveRoute(item.route)"
+              class="dropdown-item">
+              <span class="item-icon">{{ item.icon }}</span>
+              {{ item.label }}
+            </a>
+          </div>
+          
+          <div class="dropdown-divider"></div>
+          
+          <div class="dropdown-actions">
+            <button class="dropdown-item logout-btn" (click)="logout()">
+              <span class="item-icon">🚪</span>
+              Cerrar Sesión
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botón de menú móvil -->
+      <button class="mobile-menu-btn" (click)="toggleMenu()">
+        <span class="hamburger" [class.open]="isMenuOpen">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Menú móvil -->
+  <div class="mobile-menu" [class.open]="isMenuOpen">
+    <div class="mobile-menu-content">
+      <div class="mobile-user-info">
+        <img [src]="currentUser.avatar" [alt]="currentUser.nombre" class="mobile-avatar">
+        <div class="mobile-user-details">
+          <div class="mobile-user-name">{{ currentUser.nombre }}</div>
+          <div class="mobile-user-role">{{ getRoleDisplayName(currentUser.rol) }}</div>
+        </div>
+      </div>
+      
+      <div class="mobile-menu-divider"></div>
+      
+      <div class="mobile-menu-items">
+        <a 
+          *ngFor="let item of visibleMenuItems" 
+          (click)="navigate(item.route)"
+          [class.active]="isActiveRoute(item.route)"
+          class="mobile-menu-item">
+          <span class="mobile-item-icon">{{ item.icon }}</span>
+          <span class="mobile-item-text">{{ item.label }}</span>
+        </a>
+      </div>
+      
+      <div class="mobile-menu-divider"></div>
+      
+      <button class="mobile-logout-btn" (click)="logout()">
+        <span class="mobile-item-icon">🚪</span>
+        <span class="mobile-item-text">Cerrar Sesión</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Overlay para cerrar menús -->
+<div 
+  *ngIf="isMenuOpen" 
+  class="menu-overlay" 
+  (click)="closeMenu()">
+</div>

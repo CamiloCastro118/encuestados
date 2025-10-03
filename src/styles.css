@@ -1,0 +1,140 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Variables de paleta de colores azul y blanco */
+:root {
+  /* Azules principales */
+  --primary-blue: #1e3a8a;        /* Azul oscuro principal */
+  --secondary-blue: #3b82f6;      /* Azul medio */
+  --light-blue: #60a5fa;          /* Azul claro */
+  --extra-light-blue: #dbeafe;    /* Azul muy claro */
+  --pale-blue: #f0f9ff;           /* Azul pálido */
+  
+  /* Tonos de blanco y grises */
+  --white: #ffffff;
+  --off-white: #f8fafc;
+  --light-gray: #f1f5f9;
+  --medium-gray: #64748b;
+  --dark-gray: #334155;
+  
+  /* Estados */
+  --success-blue: #1d4ed8;
+  --warning-blue: #2563eb;
+  --error-blue: #1e40af;
+  --info-blue: #3b82f6;
+  
+  /* Hover y focus states */
+  --hover-blue: #1e40af;
+  --focus-blue: #2563eb;
+  
+  /* Shadows */
+  --shadow-light: 0 2px 4px rgba(30, 58, 138, 0.1);
+  --shadow-medium: 0 4px 8px rgba(30, 58, 138, 0.15);
+  --shadow-heavy: 0 8px 16px rgba(30, 58, 138, 0.2);
+  
+  /* Borders */
+  --border-light: 1px solid #e2e8f0;
+  --border-medium: 1px solid #cbd5e1;
+  --border-blue: 1px solid var(--light-blue);
+}
+
+/* Reset básico para mantener consistencia */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--off-white);
+  color: var(--dark-gray);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+/* Clases utilitarias globales */
+.btn-primary {
+  background-color: var(--primary-blue);
+  color: var(--white);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-light);
+}
+
+.btn-primary:hover {
+  background-color: var(--hover-blue);
+  box-shadow: var(--shadow-medium);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--white);
+  color: var(--primary-blue);
+  border: var(--border-blue);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--pale-blue);
+  border-color: var(--secondary-blue);
+}
+
+.card {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow-light);
+  padding: 24px;
+  border: var(--border-light);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-medium);
+}
+
+.text-primary {
+  color: var(--primary-blue);
+}
+
+.text-secondary {
+  color: var(--secondary-blue);
+}
+
+.bg-primary {
+  background-color: var(--primary-blue);
+}
+
+.bg-light {
+  background-color: var(--pale-blue);
+}
+
+/* Inputs globales */
+input[type="text"], 
+input[type="email"], 
+input[type="password"], 
+select, 
+textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: var(--border-medium);
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background-color: var(--white);
+}
+
+input[type="text"]:focus, 
+input[type="email"]:focus, 
+input[type="password"]:focus, 
+select:focus, 
+textarea:focus {
+  outline: none;
+  border-color: var(--secondary-blue);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}

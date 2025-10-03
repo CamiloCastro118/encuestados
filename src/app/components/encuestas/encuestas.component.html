@@ -1,0 +1,126 @@
+<div class="encuestas-container">
+  
+  <!-- Mensaje de estado -->
+  <div *ngIf="mensaje" class="mensaje" [class]="'mensaje-' + tipoMensaje">
+    {{ mensaje }}
+  </div>
+
+  <!-- Indicador de carga -->
+  <div *ngIf="cargando" class="loading">
+    <div class="spinner"></div>
+    <p>Procesando...</p>
+  </div>
+
+  <!-- Información de sesión (solo para desarrollo) -->
+  <div *ngIf="sessionId" class="session-info">
+    <small>Sesión activa | Tiempo: {{ getTiempoTranscurrido() }}</small>
+  </div>
+
+  <!-- Lista de encuestas -->
+  <div *ngIf="!encuestaSeleccionada" class="encuestas-lista">
+    <div class="header">
+      <h2>Encuestas Disponibles</h2>
+      <p>Selecciona una encuesta para completar</p>
+    </div>
+    
+    <div class="encuestas-grid">
+      <div 
+        *ngFor="let encuesta of encuestas" 
+        class="encuesta-card"
+        [class.vencida]="estaVencida(encuesta.fechaLimite)"
+        (click)="!estaVencida(encuesta.fechaLimite) && seleccionarEncuesta(encuesta)">
+        
+        <div class="encuesta-header">
+          <h3>{{ encuesta.titulo }}</h3>
+          <span class="estado" [class]="encuesta.estado">{{ encuesta.estado }}</span>
+        </div>
+        
+        <p class="descripcion">{{ encuesta.descripcion }}</p>
+        
+        <div class="encuesta-info">
+          <div class="fecha-info">
+            <small>Fecha límite: {{ encuesta.fechaLimite | date:'dd/MM/yyyy' }}</small>
+          </div>
+          <div class="preguntas-count">
+            <small>{{ encuesta.preguntas.length }} preguntas</small>
+          </div>
+        </div>
+        
+        <div class="encuesta-footer" *ngIf="!estaVencida(encuesta.fechaLimite)">
+          <button class="btn-completar">Completar Encuesta</button>
+        </div>
+        
+        <div class="encuesta-footer" *ngIf="estaVencida(encuesta.fechaLimite)">
+          <span class="vencida-text">Encuesta vencida</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulario de encuesta -->
+  <div *ngIf="encuestaSeleccionada" class="encuesta-form">
+    <div class="form-header">
+      <button class="btn-volver" (click)="volver()">← Volver</button>
+      <h2>{{ encuestaSeleccionada.titulo }}</h2>
+      <p>{{ encuestaSeleccionada.descripcion }}</p>
+    </div>
+    
+    <form (ngSubmit)="enviarRespuestas()" #encuestaForm="ngForm" class="preguntas-form">
+      <div *ngFor="let pregunta of encuestaSeleccionada.preguntas" class="pregunta-group">
+        <label class="pregunta-label">
+          {{ pregunta.texto }}
+          <span *ngIf="pregunta.requerida" class="requerida">*</span>
+        </label>
+        
+        <!-- Pregunta de escala -->
+        <div *ngIf="pregunta.tipo === 'escala'" class="escala-group">
+          <div class="escala-options">
+            <label *ngFor="let i of [1,2,3,4,5]" class="escala-option">
+              <input 
+                type="radio" 
+                [name]="'pregunta_' + pregunta.id"
+                [value]="i"
+                [(ngModel)]="respuestas[pregunta.id]"
+                [required]="pregunta.requerida">
+              <span class="escala-number">{{ i }}</span>
+            </label>
+          </div>
+          <div class="escala-labels">
+            <span>Muy malo</span>
+            <span>Excelente</span>
+          </div>
+        </div>
+        
+        <!-- Pregunta de opción múltiple -->
+        <div *ngIf="pregunta.tipo === 'multiple'" class="multiple-group">
+          <label *ngFor="let opcion of pregunta.opciones" class="opcion-label">
+            <input 
+              type="radio" 
+              [name]="'pregunta_' + pregunta.id"
+              [value]="opcion"
+              [(ngModel)]="respuestas[pregunta.id]"
+              [required]="pregunta.requerida">
+            <span>{{ opcion }}</span>
+          </label>
+        </div>
+        
+        <!-- Pregunta abierta -->
+        <div *ngIf="pregunta.tipo === 'abierta'" class="abierta-group">
+          <textarea 
+            [name]="'pregunta_' + pregunta.id"
+            [(ngModel)]="respuestas[pregunta.id]"
+            [required]="pregunta.requerida"
+            placeholder="Escriba su respuesta aquí..."
+            rows="4">
+          </textarea>
+        </div>
+      </div>
+      
+      <div class="form-actions">
+        <button type="submit" class="btn-enviar" [disabled]="!encuestaForm.form.valid">
+          Enviar Respuestas
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
