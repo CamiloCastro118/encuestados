@@ -11,7 +11,7 @@
     <p>Procesando...</p>
   </div>
 
-  <!-- Información de sesión (solo para desarrollo) -->
+  <!-- Información de sesion -->
   <div *ngIf="sessionId" class="session-info">
     <small>Sesión activa | Tiempo: {{ getTiempoTranscurrido() }}</small>
   </div>
@@ -91,7 +91,7 @@
           </div>
         </div>
         
-        <!-- Pregunta de opción múltiple -->
+        <!-- Pregunta de opción multiple -->
         <div *ngIf="pregunta.tipo === 'multiple'" class="multiple-group">
           <label *ngFor="let opcion of pregunta.opciones" class="opcion-label">
             <input 

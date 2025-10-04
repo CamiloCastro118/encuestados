@@ -63,7 +63,7 @@ export class DirectivoComponent implements OnInit {
     areasMonitoreo: ['todas']
   };
 
-  // Aqui le decimos a Angular que servicios necesitamos usar
+  // servicios  que necesitamos usar
   constructor(private router: Router) {}  // Router para cambiar de pagina
 
   ngOnInit(): void {
@@ -87,13 +87,13 @@ export class DirectivoComponent implements OnInit {
       },
       {
         id: 2,
-        titulo: 'Evaluación de Desempeño Docente',
-        descripcion: 'Resultados consolidados de evaluaciones docentes del semestre',
+        titulo: 'Evaluación de Servicios Institucionales',
+        descripcion: 'Resultados consolidados de evaluaciones de servicios del semestre',
         fechaGeneracion: new Date('2024-09-28'),
-        tipo: 'desempeño',
+        tipo: 'general',
         datos: {
           promedioGeneral: 4.2,
-          docentesDestacados: 15,
+          serviciosDestacados: 15,
           recomendacionesMejora: 8
         }
       },

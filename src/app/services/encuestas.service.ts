@@ -1,37 +1,38 @@
+// Herramientas para manejar las encuestas y respuestas
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { delay, map, switchMap } from 'rxjs/operators';
 import { SecurityService, SecurityCheck } from './security.service';
 
-// Estructura de datos para un usuario del sistema
+// Como se guarda la informacion de cada usuario
 export interface Usuario {
-  id: number;        // Numero unico para identificar al usuario
-  nombre: string;    // Nombre completo de la persona
-  email: string;     // Correo electronico para login
-  rol: 'estudiante' | 'docente' | 'directivo' | 'administrador';  // Que tipo de usuario es
-  fechaRegistro: Date;  // Cuando se creo la cuenta
-  activo: boolean;      // Si puede usar el sistema o esta deshabilitado
+  id: number;        // Numero para identificar al usuario
+  nombre: string;    // Nombre completo
+  email: string;     // Correo para entrar al sistema
+  rol: 'encuestado' | 'directivo' | 'administrador';  // Tipo de usuario
+  fechaRegistro: Date;  // Cuando se registro
+  activo: boolean;      // Si puede usar el sistema
 }
 
-// Estructura de datos para una pregunta de encuesta
+// Como se guarda cada pregunta de una encuesta
 export interface Pregunta {
-  id: number;       // Numero unico para identificar la pregunta
-  texto: string;    // La pregunta que se le hace al usuario
-  tipo: 'multiple' | 'abierta' | 'escala';  // Que tipo de pregunta es
-  opciones?: string[];                      // Opciones para preguntas de multiple choice
-  requerida: boolean;                       // Si es obligatoria o no
+  id: number;       // Numero para identificar la pregunta
+  texto: string;    // La pregunta que se hace al usuario
+  tipo: 'multiple' | 'abierta' | 'escala';  // Tipo de pregunta
+  opciones?: string[];                      // Opciones para elegir (solo si es multiple)
+  requerida: boolean;                       // Si es obligatoria
 }
 
-// Estructura de datos para una encuesta completa
+// Como se guarda una encuesta completa
 export interface Encuesta {
-  id: number;           // Numero unico para identificar la encuesta
+  id: number;           // Numero para identificar la encuesta
   titulo: string;       // Nombre de la encuesta
-  descripcion: string;  // Explicacion de que se trata
+  descripcion: string;  // De que se trata la encuesta
   fechaCreacion: Date;  // Cuando se creo
   fechaLimite: Date;    // Hasta cuando se puede responder
   estado: 'activa' | 'finalizada' | 'borrador';  // Estado actual
-  preguntas: Pregunta[];  // Lista de todas las preguntas
-  creadorId: number;      // ID del usuario que la creo
+  preguntas: Pregunta[];  // Todas las preguntas
+  creadorId: number;      // Quien la creo
 }
 
 // Estructura de datos para una respuesta individual a una pregunta
@@ -83,16 +84,8 @@ export class EncuestasService {
         id: 1,
         nombre: 'Juan Pérez',
         email: 'juan.perez@universidad.edu',
-        rol: 'estudiante',
+        rol: 'encuestado',
         fechaRegistro: new Date('2024-01-15'),
-        activo: true
-      },
-      {
-        id: 2,
-        nombre: 'María García',
-        email: 'maria.garcia@universidad.edu',
-        rol: 'docente',
-        fechaRegistro: new Date('2024-02-10'),
         activo: true
       },
       {
@@ -119,8 +112,8 @@ export class EncuestasService {
         id: 1,
         titulo: 'Satisfacción del Servicio',
         descripcion: 'Encuesta para evaluar la calidad del servicio prestado',
-        fechaCreacion: new Date('2024-10-01'),
-        fechaLimite: new Date('2024-10-31'),
+        fechaCreacion: new Date('2025-10-01'),
+        fechaLimite: new Date('2025-12-31'),
         estado: 'activa',
         creadorId: 4,
         preguntas: [
@@ -149,9 +142,9 @@ export class EncuestasService {
         id: 2,
         titulo: 'Evaluación de Capacitación',
         descripcion: 'Encuesta post-capacitación para evaluar efectividad',
-        fechaCreacion: new Date('2024-09-15'),
-        fechaLimite: new Date('2024-10-15'),
-        estado: 'finalizada',
+        fechaCreacion: new Date('2025-09-15'),
+        fechaLimite: new Date('2025-11-15'),
+        estado: 'activa',
         creadorId: 2,
         preguntas: [
           {

@@ -5,7 +5,7 @@ import { EncuestasService, Encuesta, Pregunta, RespuestaCompleta } from '../../s
 import { SecurityService, SecurityCheck } from '../../services/security.service';  // Servicio de seguridad
 import { Subscription } from 'rxjs';  // Para manejar suscripciones
 
-// Esto le dice a Angular que esta clase es una pagina
+// En que esta clase es una pagina
 @Component({
   selector: 'app-encuestas',  // Nombre que usamos para mostrar esta pagina
   standalone: true,           // Funciona de manera independiente
@@ -34,8 +34,8 @@ export class EncuestasComponent implements OnInit, OnDestroy {
   
   // Lista de suscripciones para limpiar al salir
   private subscriptions: Subscription[] = [];
-  
-  // Aqui le decimos a Angular que servicios necesitamos usar
+
+  // solicitamos que servicios necesitamos usar
   constructor(
     private encuestasService: EncuestasService,  // Para manejar las encuestas
     private securityService: SecurityService     // Para validar seguridad
@@ -71,7 +71,7 @@ export class EncuestasComponent implements OnInit, OnDestroy {
         this.sessionId = sessionId;
       },
       error: (error) => {
-        // Si algo salio mal, avisar al usuario
+        // Si algo salio mal y avisar al usuario
         this.mostrarMensaje('Error al inicializar sesión: ' + error.message, 'error');
       }
     });

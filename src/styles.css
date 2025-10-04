@@ -1,28 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
 
-/* Variables de paleta de colores azul y blanco */
 :root {
-  /* Azules principales */
-  --primary-blue: #1e3a8a;        /* Azul oscuro principal */
-  --secondary-blue: #3b82f6;      /* Azul medio */
-  --light-blue: #60a5fa;          /* Azul claro */
-  --extra-light-blue: #dbeafe;    /* Azul muy claro */
-  --pale-blue: #f0f9ff;           /* Azul pálido */
+ 
+  --primary-blue: #1e3a8a;        
+  --secondary-blue: #3b82f6;      
+  --light-blue: #60a5fa;          
+  --extra-light-blue: #dbeafe;    
+  --pale-blue: #f0f9ff;           
   
-  /* Tonos de blanco y grises */
   --white: #ffffff;
   --off-white: #f8fafc;
   --light-gray: #f1f5f9;
   --medium-gray: #64748b;
   --dark-gray: #334155;
   
-  /* Estados */
+ 
   --success-blue: #1d4ed8;
   --warning-blue: #2563eb;
   --error-blue: #1e40af;
   --info-blue: #3b82f6;
   
-  /* Hover y focus states */
+
   --hover-blue: #1e40af;
   --focus-blue: #2563eb;
   

@@ -7,7 +7,7 @@ interface Usuario {
   id: number;
   nombre: string;
   email: string;
-  rol: 'estudiante' | 'docente' | 'directivo' | 'administrador';
+  rol: 'encuestado' | 'directivo' | 'administrador';
   fechaRegistro: Date;
   activo: boolean;
 }
@@ -80,16 +80,8 @@ export class AdministradorComponent implements OnInit {
         id: 1,
         nombre: 'Juan Pérez',
         email: 'juan.perez@universidad.edu',
-        rol: 'estudiante',
+        rol: 'encuestado',
         fechaRegistro: new Date('2024-01-15'),
-        activo: true
-      },
-      {
-        id: 2,
-        nombre: 'María García',
-        email: 'maria.garcia@universidad.edu',
-        rol: 'docente',
-        fechaRegistro: new Date('2024-02-10'),
         activo: true
       },
       {
@@ -104,7 +96,7 @@ export class AdministradorComponent implements OnInit {
   }
 
   cargarEncuestas(): void {
-    // Datos de ejemplo
+  
     this.encuestas = [
       {
         id: 1,
@@ -117,8 +109,8 @@ export class AdministradorComponent implements OnInit {
       },
       {
         id: 2,
-        titulo: 'Evaluación Docente',
-        descripcion: 'Evaluación del desempeño docente',
+        titulo: 'Evaluación de Servicio',
+        descripcion: 'Evaluación de calidad del servicio',
         fechaCreacion: new Date('2024-09-15'),
         fechaLimite: new Date('2024-10-15'),
         estado: 'finalizada',
@@ -140,7 +132,7 @@ export class AdministradorComponent implements OnInit {
     this.vistaActual = vista;
   }
 
-  // Gestión de usuarios
+  // Gestion de usuarios
   get usuariosFiltrados(): Usuario[] {
     if (!this.filtroUsuarios) return this.usuarios;
     return this.usuarios.filter(u => 
@@ -192,7 +184,7 @@ export class AdministradorComponent implements OnInit {
     this.nuevoUsuario = {};
   }
 
-  // Gestión de encuestas
+  // Gestion de encuestas
   get encuestasFiltradas(): Encuesta[] {
     if (!this.filtroEncuestas) return this.encuestas;
     return this.encuestas.filter(e => 

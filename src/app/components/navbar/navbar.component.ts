@@ -27,7 +27,7 @@ export class NavbarComponent implements OnInit {
   // Informacion del usuario que esta usando el sistema
   currentUser = {
     nombre: 'Usuario Demo',
-    rol: 'estudiante',
+    rol: 'encuestado',
     avatar: 'https://via.placeholder.com/40x40/007bff/white?text=U'
   };
 
@@ -37,13 +37,13 @@ export class NavbarComponent implements OnInit {
       label: 'Inicio',
       route: '/home',
       icon: '🏠',
-      roles: ['estudiante', 'docente', 'directivo', 'administrador']  // Todos pueden ver inicio
+      roles: ['encuestado', 'directivo', 'administrador']  // Todos pueden ver inicio
     },
     {
       label: 'Encuestas',
       route: '/encuestas',
       icon: '📋',
-      roles: ['estudiante', 'docente', 'directivo', 'administrador']  // Todos pueden ver encuestas
+      roles: ['encuestado', 'directivo', 'administrador']  // Todos pueden ver encuestas
     },
     {
       label: 'Panel Directivo',
@@ -70,6 +70,7 @@ export class NavbarComponent implements OnInit {
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
       this.currentRoute = event.url;  // Actualizar en que pagina estamos
+      this.detectUserRole();  // Detectar el rol cada vez que cambia la ruta
     });
 
     // Saber en que pagina estamos al inicio
@@ -88,12 +89,12 @@ export class NavbarComponent implements OnInit {
     } else if (path.includes('directivo')) {
       this.currentUser.rol = 'directivo';
       this.currentUser.nombre = 'Director Demo';
-    } else if (path.includes('docente')) {
-      this.currentUser.rol = 'docente';
-      this.currentUser.nombre = 'Prof. Demo';
+    } else if (path.includes('encuestas') || path.includes('home') || path === '/') {
+      this.currentUser.rol = 'encuestado';
+      this.currentUser.nombre = 'Encuestado';
     } else {
-      this.currentUser.rol = 'estudiante';
-      this.currentUser.nombre = 'Estudiante Demo';
+      this.currentUser.rol = 'encuestado';
+      this.currentUser.nombre = 'Encuestado';
     }
   }
 
@@ -129,8 +130,7 @@ export class NavbarComponent implements OnInit {
 
   getRoleDisplayName(role: string): string {
     const roleNames: { [key: string]: string } = {
-      'estudiante': 'Estudiante',
-      'docente': 'Docente',
+      'encuestado': 'Encuestado',
       'directivo': 'Directivo',
       'administrador': 'Administrador'
     };
@@ -139,8 +139,7 @@ export class NavbarComponent implements OnInit {
 
   getRoleIcon(role: string): string {
     const roleIcons: { [key: string]: string } = {
-      'estudiante': '🎓',
-      'docente': '👨‍🏫',
+      'encuestado': '�',
       'directivo': '👔',
       'administrador': '👨‍💻'
     };

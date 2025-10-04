@@ -1,21 +1,20 @@
-// Herramienta para definir las paginas de la app
+// Definir todas las paginas de la aplicacion
 import { Routes } from '@angular/router';
 
-// Traer todas las paginas que hicimos
+// Traer todos los componentes (paginas) que creamos
 import { HomeComponent } from './components/home/home.component';  // Pagina de inicio
 import { LoginComponent } from './components/login/login.component';  // Pagina de login
 import { EncuestasComponent } from './components/encuestas/encuestas.component';  // Pagina de encuestas
+import { AdministradorComponent } from './components/administrador/administrador.component';  // Panel de admin
+import { DirectivoComponent } from './components/directivo/directivo.component';  // Panel de directivo
 
-//import { NavbarComponent } from './components/navbar/navbar.component';  // Menu de navegacion
-
-// Lista de todas las direcciones web de la app
+// Lista de todas las direcciones de la aplicacion
 export const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' }, // Si alguien va a la raiz, mandarlo a /home
-  { path: 'home', component: HomeComponent },  // home muestra la pagina de inicio
-  { path: 'login', component: LoginComponent },  // login muestra el login
-  { path: 'encuestas', component: EncuestasComponent },  // encuestas muestra las encuestas
-  //{ path: 'administrador', component: AdministradorComponent },  // administrador muestra panel admin
-  //{ path: 'directivo', component: DirectivoComponent },  // directivo muestra panel directivo
-  //{ path: 'navbar', component: NavbarComponent },  // navbar muestra el menu
-  { path: '**', redirectTo: '/home' } // Si alguien escribe una direccion que no existe, mandarlo a home
+  { path: '', redirectTo: '/home', pathMatch: 'full' }, // Si no pone nada, ir a inicio
+  { path: 'home', component: HomeComponent },  // /home muestra la pagina de inicio
+  { path: 'login', component: LoginComponent },  // /login muestra el login
+  { path: 'encuestas', component: EncuestasComponent },  // /encuestas muestra las encuestas
+  { path: 'administrador', component: AdministradorComponent },  // /administrador muestra panel admin
+  { path: 'directivo', component: DirectivoComponent },  // /directivo muestra panel directivo
+  { path: '**', redirectTo: '/home' } // Si pone algo que no existe, ir a inicio
 ];

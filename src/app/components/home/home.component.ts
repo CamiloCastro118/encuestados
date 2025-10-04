@@ -17,7 +17,7 @@ export class HomeComponent {
   constructor(private router: Router) {}  // Router para cambiar de pagina
 
   navegarA(ruta: string): void {
-    // Cuando el usuario hace clic en un boton, llevarlo a esa pagina
+    // Cuando el usuario hace clic en un boton yllevarlo a esa pagina
     this.router.navigate([ruta]);
   }
 }
