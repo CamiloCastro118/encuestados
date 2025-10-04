@@ -1,13 +1,13 @@
 # Sistema de Encuestas Angular
 
-Aplicación web para gestión de encuestas con diferentes roles de usuario: encuestados, directivos y administradores.
+Aplicacion web para gestion de encuestas con diferentes roles de usuario: encuestados, directivos y administradores.
 
 ## Características
 
-- ✅ Sistema de roles: Encuestado, Directivo, Administrador
-- ✅ Gestión de encuestas con diferentes tipos de preguntas
-- ✅ Interfaz responsiva y moderna
-- ✅ Navegación intuitiva
+Sistema de roles: Encuestado, Directivo, Administrador
+Gestión de encuestas con diferentes tipos de preguntas
+Interfaz responsiva y moderna
+Navegación intuitiva
 
 ## Tecnologías
 
