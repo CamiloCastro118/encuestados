@@ -51,6 +51,7 @@
                 }
               ],
               "outputHashing": "all"
+              ,"baseHref": "/encuestados/"
             },
             "development": {
               "optimization": false,
