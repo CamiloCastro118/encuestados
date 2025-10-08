@@ -67,7 +67,7 @@
                 }
               ],
               "outputHashing": "all",
-              "baseHref": "/",
+              "baseHref": "/encuestados/",
               "outputPath": "dist/encuestas-app"
             },
             "development": {

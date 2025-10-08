@@ -4,9 +4,13 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:prod": "ng serve --configuration production",
     "build": "ng build",
+    "build:prod": "ng build --configuration production",
     "build:ghpages": "ng run encuestas-app:build-spa:github-pages",
     "deploy": "ng run encuestas-app:build-spa:github-pages && npx angular-cli-ghpages --dir=dist/encuestas-app",
+    "deploy:check": "npm run build:ghpages && echo 'Build completed successfully'",
+    "preview": "cd dist/encuestas-app && npx serve -s .",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:encuestas-app": "node dist/encuestas-app/server/server.mjs"
