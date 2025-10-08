@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Observable, of } from 'rxjs';
 
 // Esta parte define como se ve la respuesta de seguridad
@@ -52,11 +53,13 @@ export class SecurityService {
     ]
   };
 
-  constructor() {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     // Cada 30 minutos limpiamos las sesiones viejas para no llenar la memoria
-    setInterval(() => {
-      this.limpiarSesionesExpiradas();
-    }, 30 * 60 * 1000);
+    if (this.isBrowser()) {
+      setInterval(() => {
+        this.limpiarSesionesExpiradas();
+      }, 30 * 60 * 1000);
+    }
   }
 
   // Crear una nueva sesion cuando alguien entra al sistema
@@ -404,8 +407,14 @@ export class SecurityService {
   private currentUser: any = null;  // Usuario actual autenticado
   private userRole: string = '';    // Rol del usuario actual
 
+  // Verificar si estamos en el navegador (no en SSR)
+  private isBrowser(): boolean {
+    return isPlatformBrowser(this.platformId);
+  }
+
   // Verificar si hay un usuario autenticado
   isAuthenticated(): boolean {
+    if (!this.isBrowser()) return false;
     return this.currentUser !== null && localStorage.getItem('userToken') !== null;
   }
 
@@ -440,11 +449,13 @@ export class SecurityService {
           loginTime: new Date()
         };
 
-        // Guardar token en localStorage
-        const token = this.generarToken(usuario, this.userRole);
-        localStorage.setItem('userToken', token);
-        localStorage.setItem('userRole', this.userRole);
-        localStorage.setItem('userName', usuario);
+        // Guardar token en localStorage solo si estamos en el navegador
+        if (this.isBrowser()) {
+          const token = this.generarToken(usuario, this.userRole);
+          localStorage.setItem('userToken', token);
+          localStorage.setItem('userRole', this.userRole);
+          localStorage.setItem('userName', usuario);
+        }
 
         observer.next({
           success: true,
@@ -466,9 +477,11 @@ export class SecurityService {
   logout(): void {
     this.currentUser = null;
     this.userRole = '';
-    localStorage.removeItem('userToken');
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('userName');
+    if (this.isBrowser()) {
+      localStorage.removeItem('userToken');
+      localStorage.removeItem('userRole');
+      localStorage.removeItem('userName');
+    }
   }
 
   // Obtener información del usuario actual
@@ -484,6 +497,7 @@ export class SecurityService {
 
   // Obtener rol del usuario actual
   getUserRole(): string {
+    if (!this.isBrowser()) return '';
     return this.userRole || localStorage.getItem('userRole') || '';
   }
 
@@ -523,6 +537,8 @@ export class SecurityService {
 
   // Verificar y restaurar sesión desde localStorage
   restoreSession(): void {
+    if (!this.isBrowser()) return;
+    
     const token = localStorage.getItem('userToken');
     const role = localStorage.getItem('userRole');
     const userName = localStorage.getItem('userName');

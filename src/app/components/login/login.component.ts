@@ -25,10 +25,23 @@ export class LoginComponent implements OnInit {
     private router: Router,              // Router para cambiar de pagina
     private securityService: SecurityService  // Servicio de seguridad
   ) {
-    // Verificar si ya hay una sesión activa al cargar
+    // No hacer nada aquí que dependa del navegador
+  }
+
+  ngOnInit() {
+    // Verificar si ya hay una sesión activa al cargar (solo en el navegador)
     this.securityService.restoreSession();
     if (this.securityService.isAuthenticated()) {
       this.redirectToUserHome();
+    }
+    
+    // Cargar usuario recordado
+    if (typeof window !== 'undefined' && localStorage) {
+      const rememberedUser = localStorage.getItem('rememberedUser');
+      if (rememberedUser) {
+        this.usuario = rememberedUser;
+        this.recordarUsuario = true;
+      }
     }
   }
 
@@ -46,11 +59,13 @@ export class LoginComponent implements OnInit {
           if (response.success) {
             console.log('Login exitoso:', response.user);
             
-            // Guardar usuario si eligió recordar
-            if (this.recordarUsuario) {
-              localStorage.setItem('rememberedUser', this.usuario);
-            } else {
-              localStorage.removeItem('rememberedUser');
+            // Guardar usuario si eligió recordar (solo en el navegador)
+            if (typeof window !== 'undefined' && localStorage) {
+              if (this.recordarUsuario) {
+                localStorage.setItem('rememberedUser', this.usuario);
+              } else {
+                localStorage.removeItem('rememberedUser');
+              }
             }
 
             // Redirigir según el rol del usuario
@@ -93,14 +108,5 @@ export class LoginComponent implements OnInit {
     console.log('Recuperar contraseña para:', this.usuario);
     // Aqui iria la logica para enviar un email de recuperacion
     alert('Funcionalidad de recuperación de contraseña no implementada aún.');
-  }
-
-  // Cargar usuario recordado al inicializar
-  ngOnInit() {
-    const rememberedUser = localStorage.getItem('rememberedUser');
-    if (rememberedUser) {
-      this.usuario = rememberedUser;
-      this.recordarUsuario = true;
-    }
   }
 }
