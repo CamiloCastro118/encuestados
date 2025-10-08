@@ -1,7 +1,7 @@
 // Definir todas las paginas de la aplicacion
 import { Routes } from '@angular/router';
 
-// Traer todos los componentes (paginas) que creamos
+// Traer todos los componentes de las paginas
 import { HomeComponent } from './components/home/home.component';  // Pagina de inicio
 import { LoginComponent } from './components/login/login.component';  // Pagina de login
 import { EncuestasComponent } from './components/encuestas/encuestas.component';  // Pagina de encuestas
