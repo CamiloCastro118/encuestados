@@ -114,7 +114,7 @@
                 }
               ],
               "outputHashing": "all",
-              "baseHref": "/"
+              "baseHref": "/encuestados/"
             }
           }
         },
