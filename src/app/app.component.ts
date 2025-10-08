@@ -31,11 +31,27 @@ export class AppComponent implements OnInit {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
-      // Ocultar navbar solo en la página de login
-      this.showNavbar = !event.url.includes('/login');
+      // Mostrar navbar solo en páginas autenticadas que no sean home ni login
+      this.showNavbar = this.shouldShowNavbar(event.url);
     });
 
     // Verificar ruta inicial
-    this.showNavbar = !this.router.url.includes('/login');
+    this.showNavbar = this.shouldShowNavbar(this.router.url);
+  }
+
+  private shouldShowNavbar(url: string): boolean {
+    // No mostrar navbar en login
+    if (url.includes('/login')) {
+      return false;
+    }
+    
+    // En home, mostrar navbar solo si está autenticado
+    if (url === '/home' || url === '/' || url === '') {
+      return this.securityService.isAuthenticated();
+    }
+    
+    // En otras páginas protegidas, mostrar si está autenticado
+    return this.securityService.isAuthenticated() && 
+           (url.includes('/encuestas') || url.includes('/administrador') || url.includes('/directivo'));
   }
 }

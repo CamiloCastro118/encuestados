@@ -1,17 +1,20 @@
-<app-navbar></app-navbar>
-
 <div class="home-container">
-  <div class="hero-section">
+  <!-- Sección principal para usuarios no autenticados -->
+  <div class="hero-section" *ngIf="!isAuthenticated()">
     <div class="hero-content">
-      <h1 class="hero-title">Sistema de Encuestas</h1>
+      <h1 class="hero-title">📊 Sistema de Encuestas</h1>
       <p class="hero-subtitle">Plataforma integral para la gestión y análisis de encuestas institucionales</p>
+      <p class="hero-description">
+        Bienvenido al sistema de encuestas. Para acceder a las funcionalidades completas y responder encuestas, 
+        por favor inicia sesión con tus credenciales.
+      </p>
       
       <div class="hero-actions">
-        <button class="btn-primary large" (click)="navegarA('/encuestas')">
-          📋 Ver Encuestas Disponibles
-        </button>
-        <button class="btn-secondary large" (click)="navegarA('/login')">
+        <button class="btn-primary large" (click)="navegarA('/login')">
           🔐 Iniciar Sesión
+        </button>
+        <button class="btn-secondary large" onclick="alert('Funcionalidad de información pública')">
+          📋 Información Pública
         </button>
       </div>
     </div>
@@ -29,6 +32,47 @@
         <div class="stat-item">
           <div class="stat-number">15</div>
           <div class="stat-label">Encuestas Activas</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección principal para usuarios autenticados -->
+  <div class="hero-section" *ngIf="isAuthenticated()">
+    <div class="hero-content">
+      <h1 class="hero-title">¡Bienvenido, {{ getUserName() }}! �</h1>
+      <p class="hero-subtitle">Panel principal del Sistema de Encuestas</p>
+      <p class="hero-description">
+        Tienes acceso como <strong>{{ getUserRole() }}</strong>. 
+        Desde aquí puedes acceder a todas las funcionalidades disponibles según tu rol.
+      </p>
+      
+      <div class="hero-actions">
+        <button class="btn-primary large" (click)="navegarA('/encuestas')">
+          📋 Ver Encuestas
+        </button>
+        <button class="btn-secondary large" (click)="navegarA('/administrador')" *ngIf="getUserRole() === 'admin' || getUserRole() === 'administrador'">
+          ⚙️ Administración
+        </button>
+        <button class="btn-secondary large" (click)="navegarA('/directivo')" *ngIf="getUserRole() === 'directivo'">
+          📊 Panel Directivo
+        </button>
+      </div>
+    </div>
+    
+    <div class="hero-visual">
+      <div class="stats-preview">
+        <div class="stat-item">
+          <div class="stat-number">✅</div>
+          <div class="stat-label">Autenticado</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">{{ getUserRole() }}</div>
+          <div class="stat-label">Rol Actual</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">🎯</div>
+          <div class="stat-label">Activo</div>
         </div>
       </div>
     </div>

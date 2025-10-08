@@ -15,12 +15,11 @@ import { DirectivoGuard } from './guards/directivo.guard';  // Proteger rutas de
 
 // Lista de todas las direcciones de la aplicacion con protección
 export const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' }, // Si no pone nada, ir a login
+  { path: '', redirectTo: '/home', pathMatch: 'full' }, // Si no pone nada, ir a home
   { path: 'login', component: LoginComponent },  // /login - acceso libre
   { 
     path: 'home', 
-    component: HomeComponent,
-    canActivate: [AuthGuard]  // Solo usuarios autenticados
+    component: HomeComponent  // /home - acceso libre para todos
   },
   { 
     path: 'encuestas', 
@@ -37,5 +36,5 @@ export const routes: Routes = [
     component: DirectivoComponent,
     canActivate: [DirectivoGuard]  // Solo directivos
   },
-  { path: '**', redirectTo: '/login' } // Si pone algo que no existe, ir a login
+  { path: '**', redirectTo: '/home' } // Si pone algo que no existe, ir a home
 ];
