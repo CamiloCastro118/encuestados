@@ -5,8 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:ghpages": "ng build --configuration github-pages",
-    "deploy": "ng build --configuration github-pages && npx angular-cli-ghpages --dir=dist/encuestas-app/browser --cname=encuestados.io",
+    "build:ghpages": "ng run encuestas-app:build-spa:github-pages",
+    "deploy": "ng run encuestas-app:build-spa:github-pages && npx angular-cli-ghpages --dir=dist/encuestas-app --cname=encuestados.io",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:encuestas-app": "node dist/encuestas-app/server/server.mjs"
