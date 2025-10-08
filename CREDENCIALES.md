@@ -1,6 +1,27 @@
 #Credenciales de Prueba - Sistema de Encuestas
 
-## Usuarios de Prueba
+## Usua## 🧪 Flujo de Prueba Recomendado
+
+1. **Acceder al login** con cualquiera de las credenciales
+2. **Verificar redirección** automática según el rol
+3. **Probar navegación** por las páginas permitidas
+4. **Intentar acceder** a páginas no autorizadas
+5. **🚪 USAR BOTONES DE CERRAR SESIÓN** para cambiar usuario:
+   - Botón rojo "Salir" en la barra de navegación
+   - Botón flotante rojo en la esquina superior derecha
+6. **Cambiar entre usuarios** diferentes para probar roles
+
+## 🚪 Botones de Cerrar Sesión
+
+### ✅ Disponibles en todas las páginas autenticadas:
+- **Navbar**: Botón rojo "Salir" en la barra superior
+- **Flotante**: Botón rojo en esquina superior derecha
+- **Menú**: Opción en menú desplegable del usuario
+
+### 🔄 Para cambiar de usuario:
+1. Hacer clic en cualquier botón de "Salir"
+2. Serás redirigido automáticamente al login
+3. Ingresa con diferentes credenciales para probar otros roles Prueba
 
 ### Administrador
 - **Usuario**: `admin`

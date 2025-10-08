@@ -1,4 +1,4 @@
-<nav class="navbar">
+<nav class="navbar" *ngIf="isAuthenticated() && currentUser">
   <div class="navbar-container">
     
     <!-- Logo y título -->
@@ -21,6 +21,12 @@
 
     <!-- Usuario y menú móvil -->
     <div class="navbar-actions">
+      
+      <!-- Botón de cerrar sesión prominente -->
+      <button class="logout-main-btn" (click)="logout()" title="Cerrar Sesión">
+        <span class="logout-icon">🚪</span>
+        <span class="logout-text">Salir</span>
+      </button>
       
       <!-- Información del usuario -->
       <div class="user-info">

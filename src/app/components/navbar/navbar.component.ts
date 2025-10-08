@@ -63,8 +63,9 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Obtener información del usuario actual
-    this.currentUser = this.securityService.getCurrentUser();
+    // Restaurar sesión y obtener información del usuario actual
+    this.securityService.restoreSession();
+    this.updateUserInfo();
     
     // Cuando se carga el componente, hacer estas cosas:
     
@@ -73,10 +74,34 @@ export class NavbarComponent implements OnInit {
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
       this.currentRoute = event.url;  // Actualizar en que pagina estamos
+      this.updateUserInfo();  // Actualizar info del usuario
     });
 
     // Saber en que pagina estamos al inicio
     this.currentRoute = this.router.url;
+  }
+
+  // Actualizar información del usuario
+  private updateUserInfo(): void {
+    if (this.securityService.isAuthenticated()) {
+      this.currentUser = this.securityService.getCurrentUser();
+      if (!this.currentUser) {
+        // Si no hay info completa, crear objeto básico
+        this.currentUser = {
+          id: Date.now(),
+          usuario: localStorage.getItem('userName') || 'Usuario',
+          role: this.securityService.getUserRole(),
+          avatar: 'https://via.placeholder.com/40x40/007bff/white?text=' + 
+                  (localStorage.getItem('userName')?.charAt(0).toUpperCase() || 'U')
+        };
+      } else if (!this.currentUser.avatar) {
+        // Agregar avatar si no existe
+        this.currentUser.avatar = 'https://via.placeholder.com/40x40/007bff/white?text=' + 
+                                  (this.currentUser.usuario?.charAt(0).toUpperCase() || 'U');
+      }
+    } else {
+      this.currentUser = null;
+    }
   }
 
   get visibleMenuItems(): MenuItem[] {
