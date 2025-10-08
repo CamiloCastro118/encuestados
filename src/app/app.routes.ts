@@ -10,11 +10,11 @@ import { DirectivoComponent } from './components/directivo/directivo.component';
 
 // Lista de todas las direcciones de la aplicacion
 export const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' }, // Si no pone nada, ir a inicio
+  { path: '', redirectTo: '/login', pathMatch: 'full' }, // Si no pone nada, ir a login
   { path: 'home', component: HomeComponent },  // /home muestra la pagina de inicio
   { path: 'login', component: LoginComponent },  // /login muestra el login
   { path: 'encuestas', component: EncuestasComponent },  // /encuestas muestra las encuestas
   { path: 'administrador', component: AdministradorComponent },  // /administrador muestra panel admin
   { path: 'directivo', component: DirectivoComponent },  // /directivo muestra panel directivo
-  { path: '**', redirectTo: '/home' } // Si pone algo que no existe, ir a inicio
+  { path: '**', redirectTo: '/login' } // Si pone algo que no existe, ir a login
 ];

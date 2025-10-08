@@ -5,11 +5,11 @@ Una aplicación web moderna para la gestión y análisis de encuestas institucio
 ## 🚀 URLs del Proyecto
 
 ### Producción (GitHub Pages)
-- **Sitio principal**: https://CamiloCastro118.github.io/encuestados/
+- **Sitio principal**: https://CamiloCastro118.github.io/encuestados/ (Inicia en Login)
 - **Páginas disponibles**:
+  - 🔐 Login (Principal): https://CamiloCastro118.github.io/encuestados/login
   - 🏠 Inicio: https://CamiloCastro118.github.io/encuestados/home
-  - 📋 Encuestas: https://CamiloCastro118.github.io/encuestados/encuestas
-  - 🔐 Login: https://CamiloCastro118.github.io/encuestados/login
+  - � Encuestas: https://CamiloCastro118.github.io/encuestados/encuestas
   - 👨‍💼 Administrador: https://CamiloCastro118.github.io/encuestados/administrador
   - 👔 Directivo: https://CamiloCastro118.github.io/encuestados/directivo
 
@@ -86,6 +86,8 @@ npm run preview             # Servir la versión construida localmente
 
 ## 🚀 Deploy Automático
 
+**IMPORTANTE**: La aplicación ahora inicia directamente en la página de login para GitHub Pages.
+
 El proyecto se despliega automáticamente a GitHub Pages cuando:
 1. Se hace push a la rama `main`
 2. GitHub Actions ejecuta el workflow de construcción
@@ -96,6 +98,11 @@ El proyecto se despliega automáticamente a GitHub Pages cuando:
 npm run deploy              # Solo funciona desde rama main
 npm run deploy:force        # Fuerza deploy sin verificación (usar con cuidado)
 ```
+
+### Configuración GitHub Pages
+- ✅ **URL Principal**: https://CamiloCastro118.github.io/encuestados/ (redirige a login)
+- ✅ **Base Href**: Configurado para `/encuestados/`
+- ✅ **Página de inicio**: Login (en lugar de home)
 
 ### Protección de Rama
 - ✅ **Solo rama main**: Los deploys automáticos solo se ejecutan desde `main`
