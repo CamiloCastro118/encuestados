@@ -398,4 +398,143 @@ export class SecurityService {
   obtenerIPsBloqueadas(): string[] {
     return Array.from(this.ipsBloqueadas);
   }
+
+  // ========== MÉTODOS DE AUTENTICACIÓN ==========
+  
+  private currentUser: any = null;  // Usuario actual autenticado
+  private userRole: string = '';    // Rol del usuario actual
+
+  // Verificar si hay un usuario autenticado
+  isAuthenticated(): boolean {
+    return this.currentUser !== null && localStorage.getItem('userToken') !== null;
+  }
+
+  // Verificar si el usuario actual es administrador
+  isAdmin(): boolean {
+    return this.isAuthenticated() && (this.userRole === 'admin' || this.userRole === 'administrador');
+  }
+
+  // Verificar si el usuario actual es directivo
+  isDirectivo(): boolean {
+    return this.isAuthenticated() && (this.userRole === 'directivo' || this.userRole === 'director');
+  }
+
+  // Verificar si el usuario actual es usuario normal
+  isUser(): boolean {
+    return this.isAuthenticated() && this.userRole === 'user';
+  }
+
+  // Iniciar sesión de usuario
+  login(usuario: string, password: string): Observable<any> {
+    return new Observable(observer => {
+      // Simular validación de credenciales
+      if (this.validarCredenciales(usuario, password)) {
+        // Determinar rol basado en el usuario
+        this.userRole = this.determinarRol(usuario);
+        
+        // Crear objeto de usuario
+        this.currentUser = {
+          id: Date.now(),
+          usuario: usuario,
+          role: this.userRole,
+          loginTime: new Date()
+        };
+
+        // Guardar token en localStorage
+        const token = this.generarToken(usuario, this.userRole);
+        localStorage.setItem('userToken', token);
+        localStorage.setItem('userRole', this.userRole);
+        localStorage.setItem('userName', usuario);
+
+        observer.next({
+          success: true,
+          user: this.currentUser,
+          role: this.userRole,
+          message: 'Login exitoso'
+        });
+      } else {
+        observer.next({
+          success: false,
+          message: 'Credenciales inválidas'
+        });
+      }
+      observer.complete();
+    });
+  }
+
+  // Cerrar sesión
+  logout(): void {
+    this.currentUser = null;
+    this.userRole = '';
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('userName');
+  }
+
+  // Obtener información del usuario actual
+  getCurrentUser(): any {
+    if (!this.isAuthenticated()) {
+      return null;
+    }
+    return {
+      ...this.currentUser,
+      role: this.userRole
+    };
+  }
+
+  // Obtener rol del usuario actual
+  getUserRole(): string {
+    return this.userRole || localStorage.getItem('userRole') || '';
+  }
+
+  // Validar credenciales (simulado - en producción sería contra una API)
+  private validarCredenciales(usuario: string, password: string): boolean {
+    // Credenciales de prueba
+    const credenciales = [
+      { usuario: 'admin', password: 'admin123', role: 'admin' },
+      { usuario: 'administrador', password: 'admin123', role: 'administrador' },
+      { usuario: 'directivo', password: 'dir123', role: 'directivo' },
+      { usuario: 'director', password: 'dir123', role: 'directivo' },
+      { usuario: 'user', password: 'user123', role: 'user' },
+      { usuario: 'usuario', password: 'user123', role: 'user' }
+    ];
+
+    return credenciales.some(cred => 
+      cred.usuario === usuario && cred.password === password
+    );
+  }
+
+  // Determinar rol basado en el nombre de usuario
+  private determinarRol(usuario: string): string {
+    if (usuario.includes('admin') || usuario === 'administrador') {
+      return 'admin';
+    } else if (usuario.includes('directivo') || usuario === 'director') {
+      return 'directivo';
+    } else {
+      return 'user';
+    }
+  }
+
+  // Generar token simple (en producción usar JWT)
+  private generarToken(usuario: string, role: string): string {
+    const payload = btoa(JSON.stringify({ usuario, role, timestamp: Date.now() }));
+    return `token_${payload}`;
+  }
+
+  // Verificar y restaurar sesión desde localStorage
+  restoreSession(): void {
+    const token = localStorage.getItem('userToken');
+    const role = localStorage.getItem('userRole');
+    const userName = localStorage.getItem('userName');
+
+    if (token && role && userName) {
+      this.userRole = role;
+      this.currentUser = {
+        id: Date.now(),
+        usuario: userName,
+        role: role,
+        loginTime: new Date()
+      };
+    }
+  }
 }

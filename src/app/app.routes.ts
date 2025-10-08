@@ -8,13 +8,34 @@ import { EncuestasComponent } from './components/encuestas/encuestas.component';
 import { AdministradorComponent } from './components/administrador/administrador.component';  // Panel de admin
 import { DirectivoComponent } from './components/directivo/directivo.component';  // Panel de directivo
 
-// Lista de todas las direcciones de la aplicacion
+// Traer los guards de protección
+import { AuthGuard } from './guards/auth.guard';  // Proteger rutas autenticadas
+import { AdminGuard } from './guards/admin.guard';  // Proteger rutas de admin
+import { DirectivoGuard } from './guards/directivo.guard';  // Proteger rutas de directivo
+
+// Lista de todas las direcciones de la aplicacion con protección
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Si no pone nada, ir a login
-  { path: 'home', component: HomeComponent },  // /home muestra la pagina de inicio
-  { path: 'login', component: LoginComponent },  // /login muestra el login
-  { path: 'encuestas', component: EncuestasComponent },  // /encuestas muestra las encuestas
-  { path: 'administrador', component: AdministradorComponent },  // /administrador muestra panel admin
-  { path: 'directivo', component: DirectivoComponent },  // /directivo muestra panel directivo
+  { path: 'login', component: LoginComponent },  // /login - acceso libre
+  { 
+    path: 'home', 
+    component: HomeComponent,
+    canActivate: [AuthGuard]  // Solo usuarios autenticados
+  },
+  { 
+    path: 'encuestas', 
+    component: EncuestasComponent,
+    canActivate: [AuthGuard]  // Solo usuarios autenticados
+  },
+  { 
+    path: 'administrador', 
+    component: AdministradorComponent,
+    canActivate: [AdminGuard]  // Solo administradores
+  },
+  { 
+    path: 'directivo', 
+    component: DirectivoComponent,
+    canActivate: [DirectivoGuard]  // Solo directivos
+  },
   { path: '**', redirectTo: '/login' } // Si pone algo que no existe, ir a login
 ];

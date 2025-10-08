@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';  // Herramientas para crear p
 import { CommonModule } from '@angular/common';  // Funciones basicas que se usan siempre
 import { Router, NavigationEnd } from '@angular/router';  // Para cambiar de pagina y saber cuando cambia
 import { filter } from 'rxjs/operators';  // Para filtrar eventos
+import { SecurityService } from '../../services/security.service';  // Servicio de seguridad
 
 // Estructura de datos para cada opcion del menu
 interface MenuItem {
@@ -25,11 +26,7 @@ export class NavbarComponent implements OnInit {
   currentRoute = '';         // En que pagina estamos ahora
   
   // Informacion del usuario que esta usando el sistema
-  currentUser = {
-    nombre: 'Usuario Demo',
-    rol: 'encuestado',
-    avatar: 'https://via.placeholder.com/40x40/007bff/white?text=U'
-  };
+  currentUser: any = null;
 
   // Lista de todas las opciones del menu
   menuItems: MenuItem[] = [
@@ -60,9 +57,15 @@ export class NavbarComponent implements OnInit {
   ];
 
   // Aqui le decimos a Angular que servicios necesitamos usar
-  constructor(private router: Router) {}  // Router para saber en que pagina estamos
+  constructor(
+    private router: Router,                    // Router para saber en que pagina estamos
+    private securityService: SecurityService  // Servicio de seguridad
+  ) {}
 
   ngOnInit(): void {
+    // Obtener información del usuario actual
+    this.currentUser = this.securityService.getCurrentUser();
+    
     // Cuando se carga el componente, hacer estas cosas:
     
     // Estar pendiente de cuando el usuario cambia de pagina
@@ -70,38 +73,26 @@ export class NavbarComponent implements OnInit {
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
       this.currentRoute = event.url;  // Actualizar en que pagina estamos
-      this.detectUserRole();  // Detectar el rol cada vez que cambia la ruta
     });
 
     // Saber en que pagina estamos al inicio
     this.currentRoute = this.router.url;
-
-    // Detectar que tipo de usuario es para mostrar las opciones correctas
-    this.detectUserRole();
-  }
-
-  detectUserRole(): void {
-    // Averiguar que tipo de usuario es segun donde esta navegando
-    const path = this.router.url;
-    if (path.includes('administrador')) {
-      this.currentUser.rol = 'administrador';
-      this.currentUser.nombre = 'Admin Demo';
-    } else if (path.includes('directivo')) {
-      this.currentUser.rol = 'directivo';
-      this.currentUser.nombre = 'Director Demo';
-    } else if (path.includes('encuestas') || path.includes('home') || path === '/') {
-      this.currentUser.rol = 'encuestado';
-      this.currentUser.nombre = 'Encuestado';
-    } else {
-      this.currentUser.rol = 'encuestado';
-      this.currentUser.nombre = 'Encuestado';
-    }
   }
 
   get visibleMenuItems(): MenuItem[] {
-    return this.menuItems.filter(item => 
-      item.roles.includes(this.currentUser.rol)
-    );
+    if (!this.currentUser) return [];
+    
+    const userRole = this.securityService.getUserRole();
+    return this.menuItems.filter(item => {
+      // Mapear roles del sistema a roles del menú
+      if (userRole === 'admin' || userRole === 'administrador') {
+        return item.roles.includes('administrador');
+      } else if (userRole === 'directivo') {
+        return item.roles.includes('directivo') || item.roles.includes('encuestado');
+      } else {
+        return item.roles.includes('encuestado');
+      }
+    });
   }
 
   toggleMenu(): void {
@@ -123,26 +114,41 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void {
-    // Lógica de logout
+    // Usar SecurityService para cerrar sesión
     console.log('Cerrando sesión...');
+    this.securityService.logout();
+    this.currentUser = null;
     this.router.navigate(['/login']);
   }
 
-  getRoleDisplayName(role: string): string {
+  getRoleDisplayName(): string {
+    const role = this.securityService.getUserRole();
     const roleNames: { [key: string]: string } = {
-      'encuestado': 'Encuestado',
-      'directivo': 'Directivo',
+      'user': 'Usuario',
+      'directivo': 'Directivo', 
+      'admin': 'Administrador',
       'administrador': 'Administrador'
     };
-    return roleNames[role] || role;
+    return roleNames[role] || 'Usuario';
   }
 
-  getRoleIcon(role: string): string {
+  getRoleIcon(): string {
+    const role = this.securityService.getUserRole();
     const roleIcons: { [key: string]: string } = {
-      'encuestado': '�',
+      'user': '👤',
       'directivo': '👔',
+      'admin': '👨‍💻',
       'administrador': '👨‍💻'
     };
     return roleIcons[role] || '👤';
+  }
+
+  getUserName(): string {
+    return this.currentUser?.usuario || 'Usuario';
+  }
+
+  // Verificar si el usuario está autenticado
+  isAuthenticated(): boolean {
+    return this.securityService.isAuthenticated();
   }
 }

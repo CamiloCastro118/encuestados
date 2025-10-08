@@ -117,3 +117,27 @@
   color: var(--primary-blue);
   text-decoration: underline;
 }
+
+/* Estilos para mensaje de error */
+.error-message {
+  background-color: #fee;
+  border: 1px solid #fcc;
+  color: #c33;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Estado de carga para el botón */
+.btn-login:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background-color: var(--medium-gray);
+}
+
+/* Animación para estado de carga */
+.btn-login span {
+  transition: opacity 0.3s ease;
+}

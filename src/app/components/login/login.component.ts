@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';  // Herramienta para crear una pagina
+import { Component, OnInit } from '@angular/core';  // Herramienta para crear una pagina
 import { CommonModule } from '@angular/common';  // Funciones basicas que se usan siempre
 import { FormsModule } from '@angular/forms';  // Para poder usar formularios con inputs
 import { Router } from '@angular/router';  // Para cambiar de pagina
+import { SecurityService } from '../../services/security.service';  // Servicio de seguridad
 
 // Esto le dice a Angular que esta clase es una pagina
 @Component({
@@ -11,38 +12,95 @@ import { Router } from '@angular/router';  // Para cambiar de pagina
   templateUrl: './login.component.html',  // Archivo donde esta el HTML
   styleUrls: ['./login.component.css']    // Archivo donde estan los estilos
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   // Datos que el usuario escribe en el formulario
   usuario: string = '';               // Nombre de usuario o email
   password: string = '';              // Contraseña
   recordarUsuario: boolean = false;   // Si quiere que recordemos su usuario
+  isLoading: boolean = false;         // Para mostrar estado de carga
+  errorMessage: string = '';          // Para mostrar errores
 
   // Aqui le decimos a Angular que servicios necesitamos usar
-  constructor(private router: Router) {}  // Router para cambiar de pagina
+  constructor(
+    private router: Router,              // Router para cambiar de pagina
+    private securityService: SecurityService  // Servicio de seguridad
+  ) {
+    // Verificar si ya hay una sesión activa al cargar
+    this.securityService.restoreSession();
+    if (this.securityService.isAuthenticated()) {
+      this.redirectToUserHome();
+    }
+  }
 
   onSubmit() {
     // Cuando el usuario hace clic en "Iniciar Sesion"
     if (this.usuario && this.password) {
-      // Solo continuar si escribio algo en ambos campos
-      console.log('Intento de login:', this.usuario);
-      
-      // Decidir a donde mandarlo segun el tipo de usuario
-      if (this.usuario.includes('admin')) {
-        // Si es administrador, al panel de administracion
+      this.isLoading = true;
+      this.errorMessage = '';
+
+      // Usar el SecurityService para autenticar
+      this.securityService.login(this.usuario, this.password).subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          
+          if (response.success) {
+            console.log('Login exitoso:', response.user);
+            
+            // Guardar usuario si eligió recordar
+            if (this.recordarUsuario) {
+              localStorage.setItem('rememberedUser', this.usuario);
+            } else {
+              localStorage.removeItem('rememberedUser');
+            }
+
+            // Redirigir según el rol del usuario
+            this.redirectToUserHome();
+          } else {
+            this.errorMessage = response.message || 'Error en el login';
+          }
+        },
+        error: (error) => {
+          this.isLoading = false;
+          this.errorMessage = 'Error de conexión. Intenta nuevamente.';
+          console.error('Error en login:', error);
+        }
+      });
+    } else {
+      this.errorMessage = 'Por favor completa todos los campos';
+    }
+  }
+
+  // Redirigir al usuario según su rol
+  private redirectToUserHome(): void {
+    const role = this.securityService.getUserRole();
+    
+    switch (role) {
+      case 'admin':
+      case 'administrador':
         this.router.navigate(['/administrador']);
-      } else if (this.usuario.includes('directivo')) {
-        // Si es directivo, al panel directivo
+        break;
+      case 'directivo':
         this.router.navigate(['/directivo']);
-      } else {
-        // Si es usuario normal, a las encuestas
+        break;
+      default:
         this.router.navigate(['/encuestas']);
-      }
+        break;
     }
   }
 
   onForgotPassword() {
     // Cuando hace clic en "Olvidaste tu contraseña"
-    console.log('Recuperar contraseña');
+    console.log('Recuperar contraseña para:', this.usuario);
     // Aqui iria la logica para enviar un email de recuperacion
+    alert('Funcionalidad de recuperación de contraseña no implementada aún.');
+  }
+
+  // Cargar usuario recordado al inicializar
+  ngOnInit() {
+    const rememberedUser = localStorage.getItem('rememberedUser');
+    if (rememberedUser) {
+      this.usuario = rememberedUser;
+      this.recordarUsuario = true;
+    }
   }
 }
