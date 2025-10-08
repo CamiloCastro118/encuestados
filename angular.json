@@ -113,8 +113,7 @@
                   "maximumError": "12kB"
                 }
               ],
-              "outputHashing": "all",
-              "baseHref": "/encuestados/"
+              "outputHashing": "all"
             }
           }
         },

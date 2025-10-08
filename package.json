@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "build:ghpages": "ng run encuestas-app:build-spa:github-pages",
-    "deploy": "ng run encuestas-app:build-spa:github-pages && npx angular-cli-ghpages --dir=dist/encuestas-app",
+    "deploy": "ng run encuestas-app:build-spa:github-pages && node -e \"const fs = require('fs'); const html = fs.readFileSync('dist/encuestas-app/index.html', 'utf8'); fs.writeFileSync('dist/encuestas-app/index.html', html.replace('<base href=\\\"/\\\">', '<base href=\\\"/encuestados/\\\">'));\" && npx angular-cli-ghpages --dir=dist/encuestas-app",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:encuestas-app": "node dist/encuestas-app/server/server.mjs"
