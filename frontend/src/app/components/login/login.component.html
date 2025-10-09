@@ -6,6 +6,11 @@
     </div>
     
     <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="login-form">
+      <!-- Mostrar mensaje de error si existe -->
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+
       <div class="form-group">
         <label for="usuario">Usuario</label>
         <input 
@@ -15,7 +20,8 @@
           [(ngModel)]="usuario" 
           required 
           class="form-control"
-          placeholder="Ingrese su usuario">
+          placeholder="Ingrese su usuario"
+          [disabled]="isLoading">
       </div>
       
       <div class="form-group">
@@ -27,7 +33,8 @@
           [(ngModel)]="password" 
           required 
           class="form-control"
-          placeholder="Ingrese su contraseña">
+          placeholder="Ingrese su contraseña"
+          [disabled]="isLoading">
       </div>
       
       <div class="form-group checkbox-group">
@@ -35,15 +42,17 @@
           type="checkbox" 
           id="recordar" 
           name="recordar"
-          [(ngModel)]="recordarUsuario">
+          [(ngModel)]="recordarUsuario"
+          [disabled]="isLoading">
         <label for="recordar">Recordar usuario</label>
       </div>
       
       <button 
         type="submit" 
         class="btn-login"
-        [disabled]="!loginForm.form.valid">
-        Ingresar
+        [disabled]="!loginForm.form.valid || isLoading">
+        <span *ngIf="isLoading">Iniciando sesión...</span>
+        <span *ngIf="!isLoading">Ingresar</span>
       </button>
       
       <div class="login-links">

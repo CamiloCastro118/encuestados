@@ -86,6 +86,41 @@
   gap: 20px;
 }
 
+/* Botón principal de cerrar sesión */
+.logout-main-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(220, 53, 69, 0.9);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logout-main-btn:hover {
+  background: rgba(220, 53, 69, 1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.logout-main-btn:active {
+  transform: translateY(0);
+}
+
+.logout-icon {
+  font-size: 16px;
+}
+
+.logout-text {
+  font-size: 14px;
+}
+
 /* Información del usuario */
 .user-info {
   display: flex;
@@ -415,24 +450,31 @@
     padding: 0 15px;
   }
 
-  .brand-text {
+  /* Botón de cerrar sesión en móvil - solo icono */
+  .logout-main-btn .logout-text {
     display: none;
+  }
+  
+  .logout-main-btn {
+    padding: 10px 12px;
+    min-width: 44px;
+    justify-content: center;
   }
 
   .desktop-menu {
     display: none;
   }
 
-  .user-info {
-    display: none;
-  }
-
-  .user-menu {
-    display: none;
-  }
-
   .mobile-menu-btn {
     display: block;
+  }
+
+  .user-details {
+    display: none;
+  }
+
+  .navbar-actions {
+    gap: 12px;
   }
 }
 

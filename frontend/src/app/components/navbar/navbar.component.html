@@ -1,4 +1,4 @@
-<nav class="navbar">
+<nav class="navbar" *ngIf="isAuthenticated() && currentUser">
   <div class="navbar-container">
     
     <!-- Logo y título -->
@@ -22,16 +22,22 @@
     <!-- Usuario y menú móvil -->
     <div class="navbar-actions">
       
+      <!-- Botón de cerrar sesión prominente -->
+      <button class="logout-main-btn" (click)="logout()" title="Cerrar Sesión">
+        <span class="logout-icon">🚪</span>
+        <span class="logout-text">Salir</span>
+      </button>
+      
       <!-- Información del usuario -->
       <div class="user-info">
         <div class="user-avatar">
           <img [src]="currentUser.avatar" [alt]="currentUser.nombre">
         </div>
         <div class="user-details">
-          <div class="user-name">{{ currentUser.nombre }}</div>
+          <div class="user-name">{{ getUserName() }}</div>
           <div class="user-role">
-            <span class="role-icon">{{ getRoleIcon(currentUser.rol) }}</span>
-            {{ getRoleDisplayName(currentUser.rol) }}
+            <span class="role-icon">{{ getRoleIcon() }}</span>
+            {{ getRoleDisplayName() }}
           </div>
         </div>
       </div>
@@ -48,7 +54,7 @@
               <img [src]="currentUser.avatar" [alt]="currentUser.nombre" class="dropdown-avatar">
               <div>
                 <div class="dropdown-name">{{ currentUser.nombre }}</div>
-                <div class="dropdown-role">{{ getRoleDisplayName(currentUser.rol) }}</div>
+                <div class="dropdown-role">{{ getRoleDisplayName() }}</div>
               </div>
             </div>
           </div>
@@ -95,7 +101,7 @@
         <img [src]="currentUser.avatar" [alt]="currentUser.nombre" class="mobile-avatar">
         <div class="mobile-user-details">
           <div class="mobile-user-name">{{ currentUser.nombre }}</div>
-          <div class="mobile-user-role">{{ getRoleDisplayName(currentUser.rol) }}</div>
+          <div class="mobile-user-role">{{ getRoleDisplayName() }}</div>
         </div>
       </div>
       
