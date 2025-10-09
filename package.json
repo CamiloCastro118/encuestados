@@ -1,54 +1,53 @@
 {
-  "name": "encuestas-app",
-  "version": "0.0.0",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "start:prod": "ng serve --configuration production",
-    "build": "ng build",
-    "build:prod": "ng build --configuration production",
-    "build:ghpages": "ng run encuestas-app:build-spa:github-pages",
-    "predeploy": "node -e \"const branch = require('child_process').execSync('git branch --show-current', {encoding:'utf8'}).trim(); if(branch !== 'main') { console.error('❌ Error: Solo se puede hacer deploy desde la rama main. Rama actual:', branch); process.exit(1); } else { console.log('✅ Deploy desde rama main confirmado'); }\"",
-    "deploy": "npm run predeploy && ng run encuestas-app:build-spa:github-pages && npx angular-cli-ghpages --dir=dist/encuestas-app",
-    "deploy:check": "npm run build:ghpages && echo 'Build completed successfully'",
-    "deploy:force": "ng run encuestas-app:build-spa:github-pages && npx angular-cli-ghpages --dir=dist/encuestas-app",
-    "push:safe": "powershell -ExecutionPolicy Bypass -File ./scripts/safe-push.ps1",
-    "git:check": "node -e \"const branch = require('child_process').execSync('git branch --show-current', {encoding:'utf8'}).trim(); console.log('🌿 Rama actual:', branch); if(branch === 'main') { console.log('✅ Estás en la rama main'); } else { console.log('⚠️  No estás en la rama main'); }\"",
-    "preview": "cd dist/encuestas-app && npx serve -s .",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "serve:ssr:encuestas-app": "node dist/encuestas-app/server/server.mjs"
-  },
+  "name": "encuestas-fullstack",
+  "version": "1.0.0",
+  "description": "Aplicación fullstack de encuestas con Angular y Node.js",
   "private": true,
-  "dependencies": {
-    "@angular/common": "^19.2.0",
-    "@angular/compiler": "^19.2.0",
-    "@angular/core": "^19.2.0",
-    "@angular/forms": "^19.2.0",
-    "@angular/platform-browser": "^19.2.0",
-    "@angular/platform-browser-dynamic": "^19.2.0",
-    "@angular/platform-server": "^19.2.0",
-    "@angular/router": "^19.2.0",
-    "@angular/ssr": "^19.2.17",
-    "express": "^4.18.2",
-    "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "install:all": "npm install && npm install --prefix frontend && npm install --prefix backend",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start:frontend": "cd frontend && npm start",
+    "start:backend": "cd backend && npm run dev",
+    "start:frontend:prod": "cd frontend && npm run start:prod",
+    "start:backend:prod": "cd backend && npm start",
+    "build": "npm run build:frontend",
+    "build:frontend": "cd frontend && npm run build:prod",
+    "build:ghpages": "cd frontend && npm run build:ghpages",
+    "test": "concurrently \"npm run test:frontend\" \"npm run test:backend\"",
+    "test:frontend": "cd frontend && npm test",
+    "test:backend": "cd backend && npm test",
+    "predeploy": "cd frontend && npm run predeploy",
+    "deploy": "cd frontend && npm run deploy",
+    "deploy:force": "cd frontend && npm run deploy:force",
+    "git:check": "cd frontend && npm run git:check",
+    "push:safe": "cd frontend && npm run push:safe",
+    "preview": "cd frontend && npm run preview",
+    "dev": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "clean": "rimraf frontend/node_modules backend/node_modules frontend/dist backend/dist",
+    "lint:frontend": "cd frontend && ng lint",
+    "format": "prettier --write \"**/*.{js,ts,json,html,css,scss}\""
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^19.2.17",
-    "@angular/cli": "^19.2.17",
-    "@angular/compiler-cli": "^19.2.0",
-    "@types/express": "^4.17.17",
-    "@types/jasmine": "~5.1.0",
-    "@types/node": "^18.18.0",
-    "angular-cli-ghpages": "^2.0.3",
-    "jasmine-core": "~5.6.0",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.7.2"
-  }
+    "concurrently": "^8.2.2",
+    "rimraf": "^5.0.5",
+    "prettier": "^3.0.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "keywords": [
+    "angular",
+    "nodejs",
+    "express",
+    "encuestas",
+    "fullstack",
+    "typescript"
+  ],
+  "author": "",
+  "license": "ISC"
 }
