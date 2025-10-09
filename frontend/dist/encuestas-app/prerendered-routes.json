@@ -1,0 +1,10 @@
+{
+  "routes": {
+    "/encuestados": {},
+    "/encuestados/administrador": {},
+    "/encuestados/directivo": {},
+    "/encuestados/encuestas": {},
+    "/encuestados/home": {},
+    "/encuestados/login": {}
+  }
+}

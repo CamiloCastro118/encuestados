@@ -1,0 +1,10 @@
+<div *ngIf="isLoggedIn()" class="logout-container">
+  <button 
+    class="logout-button" 
+    (click)="onLogout()"
+    type="button"
+    title="Cerrar sesión">
+    <i class="fas fa-sign-out-alt"></i>
+    Cerrar Sesión
+  </button>
+</div>
