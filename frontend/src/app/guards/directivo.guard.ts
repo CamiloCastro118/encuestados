@@ -2,6 +2,7 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
+import { SecurityService } from '../services/security.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,8 @@ export class DirectivoGuard implements CanActivate {
   constructor(
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
+    ,
+    private securityService: SecurityService
   ) {}
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
@@ -20,21 +23,19 @@ export class DirectivoGuard implements CanActivate {
       return false;
     }
 
-    // Verificar si el usuario está autenticado
-    const userSession = localStorage.getItem('userSession');
-    const userRole = localStorage.getItem('userRole');
-    
-    if (userSession && userRole === 'directivo') {
-      // Usuario autenticado y con rol de directivo
-      return true;
-    } else if (userSession) {
-      // Usuario autenticado pero sin permisos de directivo
+    // Usar SecurityService para determinar autenticación y rol
+    if (this.securityService.isAuthenticated()) {
+      const role = this.securityService.getUserRole();
+      if (role === 'directivo' || role === 'director') {
+        return true;
+      }
+      // Autenticado pero sin permisos de directivo
       this.router.navigate(['/home']);
       return false;
-    } else {
-      // Usuario no autenticado, redirigir al login
-      this.router.navigate(['/login']);
-      return false;
     }
+
+    // No autenticado
+    this.router.navigate(['/login']);
+    return false;
   }
 }

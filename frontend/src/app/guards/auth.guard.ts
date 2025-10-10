@@ -2,6 +2,7 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
+import { SecurityService } from '../services/security.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ export class AuthGuard implements CanActivate {
   
   constructor(
     private router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private securityService: SecurityService
   ) {}
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
@@ -19,17 +21,12 @@ export class AuthGuard implements CanActivate {
       this.router.navigate(['/login']);
       return false;
     }
-
-    // Verificar si el usuario está autenticado
-    const userSession = localStorage.getItem('userSession');
-    
-    if (userSession) {
-      // Usuario autenticado, permitir acceso
+    // Usar SecurityService para decidir si el usuario está autenticado
+    if (this.securityService.isAuthenticated()) {
       return true;
-    } else {
-      // Usuario no autenticado, redirigir al login
-      this.router.navigate(['/login']);
-      return false;
     }
+    // No token -> redirigir al login
+    this.router.navigate(['/login']);
+    return false;
   }
 }
