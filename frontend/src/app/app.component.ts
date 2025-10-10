@@ -34,7 +34,24 @@ export class AppComponent implements OnInit {
       this.showNavbar = this.shouldShowNavbar(event.url);
     });
 
-    // Verificar ruta inicial
+    // Restaurar sesión (si existe) y verificar ruta inicial
+    // Esto asegura que la app cargue el estado del usuario antes de decidir qué mostrar.
+    try {
+      // restoreSession es seguro con SSR (ver SecurityService)
+      (this.securityService as any).restoreSession?.();
+    } catch (e) {
+      // Si ocurre algo en SSR, ignoramos y seguimos
+      console.warn('restoreSession failed:', e);
+    }
+
+    // Si la URL inicial está vacía o '/', navegar a /home para mostrar la pantalla de inicio
+    const currentUrl = this.router.url || '/';
+    if (currentUrl === '/' || currentUrl === '') {
+      // Usar navigateByUrl para evitar apilar rutas
+      this.router.navigateByUrl('/home');
+    }
+
+    // Determinar si se muestra el navbar en la ruta actual
     this.showNavbar = this.shouldShowNavbar(this.router.url);
   }
 

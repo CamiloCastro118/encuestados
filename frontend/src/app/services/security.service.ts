@@ -489,6 +489,12 @@ export class SecurityService {
       localStorage.removeItem('userToken');
       localStorage.removeItem('userRole');
       localStorage.removeItem('userName');
+      // También eliminar la marca de sesión usada por los guards
+      try {
+        localStorage.removeItem('userSession');
+      } catch (e) {
+        // ignorar errores de storage
+      }
     }
   }
 
@@ -550,8 +556,10 @@ export class SecurityService {
     const token = localStorage.getItem('userToken');
     const role = localStorage.getItem('userRole');
     const userName = localStorage.getItem('userName');
-
-    if (token && role && userName) {
+    const userSession = localStorage.getItem('userSession');
+    // Sólo restauramos si además existe la marca `userSession` que usan los guards.
+    // Esto evita que tokens viejos o datos parciales auto-autenticen la app en la vista Home.
+    if (token && role && userName && userSession) {
       this.userRole = role;
       this.currentUser = {
         id: Date.now(),
