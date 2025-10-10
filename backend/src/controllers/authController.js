@@ -6,7 +6,7 @@ let users = [
     id: 1,
     username: "admin",
     email: "admin@encuestas.com",
-    password: "admin123", // En producción esto debe estar hasheado
+    password: "admin123", // En produccion esto debe estar hasheado
     role: "admin",
     fechaCreacion: new Date().toISOString()
   },

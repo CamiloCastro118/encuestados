@@ -9,7 +9,7 @@ import { ExportService } from './services/export.service';  // Servicio de expor
 // Configuracion principal de toda la aplicacion
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes),  // Router normal para GitHub Pages
+    provideRouter(routes),  // Router normal
     EncuestasService,       // Servicio para manejar encuestas
     SecurityService,        // Servicio de seguridad
     ExportService          // Servicio de exportación
