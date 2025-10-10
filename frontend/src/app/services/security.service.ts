@@ -438,8 +438,10 @@ export class SecurityService {
     return new Observable(observer => {
       // Simular validación de credenciales
       if (this.validarCredenciales(usuario, password)) {
-        // Determinar rol basado en el usuario
-        this.userRole = this.determinarRol(usuario);
+  // Determinar rol basado en el usuario y normalizar a los valores que esperan los guards
+  const role = this.determinarRol(usuario);
+  // Normalizar nombres: 'admin' => 'administrador', 'directivo' => 'directivo', 'user' => 'user'
+  this.userRole = role === 'admin' ? 'administrador' : role === 'directivo' ? 'directivo' : 'user';
         
         // Crear objeto de usuario
         this.currentUser = {
@@ -449,12 +451,18 @@ export class SecurityService {
           loginTime: new Date()
         };
 
-        // Guardar token en localStorage solo si estamos en el navegador
+        // Guardar token y sesión en localStorage solo si estamos en el navegador
         if (this.isBrowser()) {
           const token = this.generarToken(usuario, this.userRole);
           localStorage.setItem('userToken', token);
           localStorage.setItem('userRole', this.userRole);
           localStorage.setItem('userName', usuario);
+          // Guardar una marca de sesión que usan los guards (userSession)
+          try {
+            localStorage.setItem('userSession', JSON.stringify({ id: this.currentUser.id, usuario }));
+          } catch (e) {
+            // Si falla (espacio o bloqueo de storage), lo ignoramos para no romper la app
+          }
         }
 
         observer.next({

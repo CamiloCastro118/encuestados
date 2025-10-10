@@ -6,13 +6,12 @@ import { filter } from 'rxjs/operators';
 
 // Componentes
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { LogoutButtonComponent } from './components/logout-button/logout-button.component';
 import { SecurityService } from './services/security.service';
 
 // Componente principal de toda la aplicacion
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, NavbarComponent, LogoutButtonComponent],
+  imports: [RouterOutlet, CommonModule, NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
