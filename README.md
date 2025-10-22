@@ -61,10 +61,6 @@ Sistema completo para gestion de encuestas con **Angular 19*
 ###  En Desarrollo
 
 
-###  Proximas Mejoras- `npm run clean` - Limpiar node_modules y dist
-
-
-
 El proyecto se despliega automáticamente a GitHub Pages cuando:
 
 
