@@ -1,3 +1,24 @@
+# Node
+node_modules/
+**/node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Build outputs
+dist/
+build/
+
+# OS files
+.DS_Store
+
+# Env
+.env
+
+# Optional lockfiles (keep if you want lockfiles in repo)
+# package-lock.json
 # See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
 # Compiled output
