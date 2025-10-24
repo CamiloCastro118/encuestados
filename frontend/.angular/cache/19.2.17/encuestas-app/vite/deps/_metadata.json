@@ -1,49 +1,49 @@
 {
-  "hash": "c68be14f",
-  "configHash": "df5267a5",
-  "lockfileHash": "c2502f83",
-  "browserHash": "5269227e",
+  "hash": "d49bd5c2",
+  "configHash": "393f8d5d",
+  "lockfileHash": "c08bc3a7",
+  "browserHash": "cd4a1ce8",
   "optimized": {
     "@angular/common": {
       "src": "../../../../../../node_modules/@angular/common/fesm2022/common.mjs",
       "file": "@angular_common.js",
-      "fileHash": "7ba71560",
+      "fileHash": "1beacc18",
       "needsInterop": false
     },
     "@angular/core": {
       "src": "../../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "7df74c5e",
+      "fileHash": "3a11abb5",
       "needsInterop": false
     },
     "@angular/forms": {
       "src": "../../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
       "file": "@angular_forms.js",
-      "fileHash": "223a1ae8",
+      "fileHash": "7f125b40",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-      "fileHash": "abe53b5f",
+      "fileHash": "734d638e",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-      "fileHash": "772d55c4",
+      "fileHash": "8f4868d0",
       "needsInterop": false
     },
     "rxjs": {
       "src": "../../../../../../../node_modules/rxjs/dist/esm5/index.js",
       "file": "rxjs.js",
-      "fileHash": "d3c0d112",
+      "fileHash": "b932aef5",
       "needsInterop": false
     },
     "rxjs/operators": {
       "src": "../../../../../../../node_modules/rxjs/dist/esm5/operators/index.js",
       "file": "rxjs_operators.js",
-      "fileHash": "71014940",
+      "fileHash": "5bf45f11",
       "needsInterop": false
     }
   },
@@ -57,11 +57,11 @@
     "chunk-GAPBX45Z": {
       "file": "chunk-GAPBX45Z.js"
     },
-    "chunk-37VSNGIT": {
-      "file": "chunk-37VSNGIT.js"
-    },
     "chunk-7AADCGDY": {
       "file": "chunk-7AADCGDY.js"
+    },
+    "chunk-37VSNGIT": {
+      "file": "chunk-37VSNGIT.js"
     },
     "chunk-HCRA6G56": {
       "file": "chunk-HCRA6G56.js"

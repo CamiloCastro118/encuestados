@@ -43,27 +43,6 @@ Sistema completo para gestion de encuestas con **Angular 19*
 
 ### Servicios
 
-- **EncuestasService** - Gestion de encuestas## 🛠 Scripts Disponibles
-
-- **SecurityService** - Autenticacion y seguridad
-
-- **ExportService** - Exportacion de datos### Vista Previa
-
-
-1. **Desarrollo Local**- `npm start` - Ejecutar frontend + backendnpm run preview             # Servir la versión construida localmente
-
-   ```bash
-
-   npm run dev  # Ejecuta frontend + backend- `npm run dev` - Alias para start```
-
-
-
-###  En Desarrollo
-
-
-El proyecto se despliega automáticamente a GitHub Pages cuando:
-
-
 ## Licencia
 
 - **Routing**: Angular Router### Deploy Manual
@@ -76,13 +55,7 @@ Proyecto bajo Licencia ISC.
 
 - **Build**: Angular CLInpm run deploy # Solo funciona desde rama main
 
-> **Nota**: Sistema en desarrollo con datos simulados. Para uso en produccion configurar base de datos real.
-
-
-### Comandos de Seguridad
-
-
-## Características Principales
+Sistema en desarrollo con datos simulados. Para uso en produccion configurar base de datos real.
 
 
 
@@ -90,4 +63,3 @@ Proyecto bajo Licencia ISC.
 
 - **Repositorio**: https://github.com/CamiloCastro118/encuestados- Angular 19.2.17
 
-```
