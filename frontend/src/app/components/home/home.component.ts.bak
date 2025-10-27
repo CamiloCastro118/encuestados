@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';  // Herramienta para crear una pagina
+import { Component, OnInit } from '@angular/core';  // Herramienta para crear una pagina
 import { CommonModule } from '@angular/common';  // Funciones basicas que se usan siempre
 import { Router } from '@angular/router';  // Para cambiar de pagina
 import { SecurityService } from '../../services/security.service';  // Servicio de seguridad
@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Restaurar sesion si existe
+    // Restaurar sesión si existe
     this.securityService.restoreSession();
   }
 
@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
     this.router.navigate([ruta]);
   }
 
-  // Verificar si el usuario esta autenticado
+  // Verificar si el usuario está autenticado
   isAuthenticated(): boolean {
     return this.securityService.isAuthenticated();
   }

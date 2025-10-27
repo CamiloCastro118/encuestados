@@ -10,12 +10,12 @@ import {
 
 const router = express.Router();
 
-// Rutas publicas (para responder encuestas)
+// Rutas publicas responder encuestas
 router.get('/', getAllEncuestas);
 router.get('/:id', getEncuestaById);
 router.post('/:id/respuesta', submitRespuesta);
 
-// Rutas protegidas (requieren autenticacion)
+// Rutas protegidas requieren autenticacion
 router.post('/', createEncuesta);
 router.put('/:id', updateEncuesta);
 router.delete('/:id', deleteEncuesta);

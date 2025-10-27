@@ -1,4 +1,4 @@
-﻿.login-container {
+.login-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -130,14 +130,14 @@
   text-align: center;
 }
 
-/* Estado de carga para el boton */
+/* Estado de carga para el botón */
 .btn-login:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   background-color: var(--medium-gray);
 }
 
-/* Animacion para estado de carga */
+/* Animación para estado de carga */
 .btn-login span {
   transition: opacity 0.3s ease;
 }

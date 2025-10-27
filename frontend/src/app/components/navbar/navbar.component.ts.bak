@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';  // Herramientas para crear paginas
+import { Component, OnInit } from '@angular/core';  // Herramientas para crear paginas
 import { CommonModule } from '@angular/common';  // Funciones basicas que se usan siempre
 import { Router, NavigationEnd } from '@angular/router';  // Para cambiar de pagina y saber cuando cambia
 import { filter } from 'rxjs/operators';  // Para filtrar eventos
@@ -63,7 +63,7 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Restaurar sesion y obtener informacion del usuario actual
+    // Restaurar sesión y obtener información del usuario actual
     this.securityService.restoreSession();
     this.updateUserInfo();
     
@@ -81,12 +81,12 @@ export class NavbarComponent implements OnInit {
     this.currentRoute = this.router.url;
   }
 
-  // Actualizar informacion del usuario
+  // Actualizar información del usuario
   private updateUserInfo(): void {
     if (this.securityService.isAuthenticated()) {
       this.currentUser = this.securityService.getCurrentUser();
       if (!this.currentUser) {
-        // Si no hay info completa, crear objeto basico
+        // Si no hay info completa, crear objeto básico
         this.currentUser = {
           id: Date.now(),
           usuario: localStorage.getItem('userName') || 'Usuario',
@@ -109,7 +109,7 @@ export class NavbarComponent implements OnInit {
     
     const userRole = this.securityService.getUserRole();
     return this.menuItems.filter(item => {
-      // Mapear roles del sistema a roles del menu
+      // Mapear roles del sistema a roles del menú
       if (userRole === 'admin' || userRole === 'administrador') {
         return item.roles.includes('administrador');
       } else if (userRole === 'directivo') {
@@ -139,7 +139,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void {
-    // Usar SecurityService para cerrar sesion
+    // Usar SecurityService para cerrar sesión
     console.log('Cerrando sesión...');
     this.securityService.logout();
     this.currentUser = null;
@@ -172,7 +172,7 @@ export class NavbarComponent implements OnInit {
     return this.currentUser?.usuario || 'Usuario';
   }
 
-  // Verificar si el usuario esta autenticado
+  // Verificar si el usuario está autenticado
   isAuthenticated(): boolean {
     return this.securityService.isAuthenticated();
   }

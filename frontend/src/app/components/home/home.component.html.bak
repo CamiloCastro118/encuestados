@@ -1,5 +1,5 @@
-﻿<div class="home-container">
-  <!-- Seccion principal para usuarios no autenticados -->
+<div class="home-container">
+  <!-- Sección principal para usuarios no autenticados -->
   <div class="hero-section" *ngIf="!isAuthenticated()">
     <div class="hero-content">
       <h1 class="hero-title">📊 Sistema de Encuestas</h1>
@@ -37,7 +37,7 @@
     </div>
   </div>
 
-  <!-- Seccion principal para usuarios autenticados -->
+  <!-- Sección principal para usuarios autenticados -->
   <div class="hero-section" *ngIf="isAuthenticated()">
     <div class="hero-content">
       <h1 class="hero-title">¡Bienvenido, {{ getUserName() }}! �</h1>

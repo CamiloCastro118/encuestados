@@ -7,7 +7,7 @@ import {
 
 const router = express.Router();
 
-// Rutas administrativas (requieren rol de admin)
+// Rutas administrativas  rol de admin
 router.get('/dashboard', getDashboardStats);
 router.get('/users', getAllUsers);
 router.get('/export/:format', exportData);

@@ -1,4 +1,4 @@
-﻿// Herramientas para manejar las encuestas y respuestas
+// Herramientas para manejar las encuestas y respuestas
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { delay, map, switchMap } from 'rxjs/operators';
@@ -258,7 +258,7 @@ export class EncuestasService {
     return of(true);
   }
 
-  // Validacion de respuesta unica por usuario
+  // Validación de respuesta única por usuario
   usuarioYaRespondio(encuestaId: number, usuarioId: number): Observable<boolean> {
     const respuestas = this.respuestasSubject.value;
     const yaRespondio = respuestas.some(r => r.encuestaId === encuestaId && r.usuarioId === usuarioId);
@@ -267,7 +267,7 @@ export class EncuestasService {
 
   // Enviar respuesta con validaciones
   enviarRespuesta(respuestaCompleta: Omit<RespuestaCompleta, 'id'>): Observable<{ success: boolean; message: string }> {
-    // Validar respuesta unica
+    // Validar respuesta única
     const yaRespondio = this.respuestasSubject.value.some(
       r => r.encuestaId === respuestaCompleta.encuestaId && r.usuarioId === respuestaCompleta.usuarioId
     );
@@ -276,7 +276,7 @@ export class EncuestasService {
       return of({ success: false, message: 'Ya has respondido esta encuesta' });
     }
 
-    // Validar limites de tiempo (anti-spam basico)
+    // Validar límites de tiempo (anti-spam básico)
     if (respuestaCompleta.tiempoRespuesta && respuestaCompleta.tiempoRespuesta < 30) {
       return of({ success: false, message: 'Respuesta enviada muy rápido. Por favor, tómate tiempo para leer las preguntas.' });
     }
@@ -292,7 +292,7 @@ export class EncuestasService {
     return of({ success: true, message: 'Respuesta enviada exitosamente' });
   }
 
-  // Obtener estadisticas por encuesta
+  // Obtener estadísticas por encuesta
   obtenerEstadisticasEncuesta(encuestaId: number): Observable<any> {
     const respuestas = this.respuestasSubject.value.filter(r => r.encuestaId === encuestaId);
     const encuesta = this.encuestasSubject.value.find(e => e.id === encuestaId);
@@ -406,9 +406,9 @@ export class EncuestasService {
     return of(true);
   }
 
-  // Metodos de seguridad
+  // Métodos de seguridad
 
-  // Inicializar sesion segura para usuario
+  // Inicializar sesión segura para usuario
   inicializarSesionSegura(userId: number, ipAddress: string, userAgent: string): Observable<string> {
     const sessionId = this.securityService.inicializarSesion(userId, ipAddress, userAgent);
     this.sesionesUsuario.set(userId, sessionId);
@@ -448,7 +448,7 @@ export class EncuestasService {
             return throwError(() => new Error(validacion.message));
           }
 
-          // Si la validacion es exitosa, proceder con el guardado normal
+          // Si la validación es exitosa, proceder con el guardado normal
           const respuestaCompleta: Omit<RespuestaCompleta, 'id'> = {
             encuestaId,
             usuarioId: userId,
@@ -471,7 +471,7 @@ export class EncuestasService {
       );
   }
 
-  // Obtener estadisticas de seguridad (solo para administradores)
+  // Obtener estadísticas de seguridad (solo para administradores)
   obtenerEstadisticasSeguridad(): Observable<any> {
     return this.securityService.obtenerEstadisticasSeguridad();
   }
@@ -486,7 +486,7 @@ export class EncuestasService {
     return of(this.securityService.obtenerIPsBloqueadas());
   }
 
-  // Cerrar sesion de usuario
+  // Cerrar sesión de usuario
   cerrarSesion(userId: number): void {
     this.sesionesUsuario.delete(userId);
   }

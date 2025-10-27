@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';  // Herramientas para crear paginas
+import { Component, OnInit } from '@angular/core';  // Herramientas para crear paginas
 import { CommonModule } from '@angular/common';  // Funciones basicas que se usan siempre
 import { FormsModule } from '@angular/forms';  // Para poder usar formularios con inputs
 import { Router } from '@angular/router';  // Para cambiar de pagina
@@ -55,7 +55,7 @@ export class DirectivoComponent implements OnInit {
   reportes: Reporte[] = [];
   reporteSeleccionado: Reporte | null = null;
 
-  // Configuracion
+  // Configuración
   configuracion = {
     frecuenciaReportes: 'semanal',
     notificacionesEmail: true,

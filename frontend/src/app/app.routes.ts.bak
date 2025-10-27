@@ -1,4 +1,4 @@
-﻿// Definir todas las paginas de la aplicacion
+// Definir todas las paginas de la aplicacion
 import { Routes } from '@angular/router';
 
 // Traer todos los componentes de las paginas
@@ -8,12 +8,12 @@ import { EncuestasComponent } from './components/encuestas/encuestas.component';
 import { AdministradorComponent } from './components/administrador/administrador.component';  // Panel de admin
 import { DirectivoComponent } from './components/directivo/directivo.component';  // Panel de directivo
 
-// Traer los guards de proteccion
+// Traer los guards de protección
 import { AuthGuard } from './guards/auth.guard';  // Proteger rutas autenticadas
 import { AdminGuard } from './guards/admin.guard';  // Proteger rutas de admin
 import { DirectivoGuard } from './guards/directivo.guard';  // Proteger rutas de directivo
 
-// Lista de todas las direcciones de la aplicacion con proteccion
+// Lista de todas las direcciones de la aplicacion con protección
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' }, // Si no pone nada, ir a home
   { path: 'login', component: LoginComponent },  // /login - acceso libre
@@ -38,4 +38,3 @@ export const routes: Routes = [
   },
   { path: '**', redirectTo: '/home' } // Si pone algo que no existe, ir a home
 ];
-

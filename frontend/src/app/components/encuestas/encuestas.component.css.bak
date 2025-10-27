@@ -1,4 +1,4 @@
-﻿.encuestas-container {
+.encuestas-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
@@ -56,7 +56,7 @@
   font-weight: 500;
 }
 
-/* Informacion de sesion */
+/* Información de sesión */
 .session-info {
   background: var(--pale-blue);
   padding: 8px 15px;
@@ -309,7 +309,7 @@
   color: #666;
 }
 
-/* Opcion multiple */
+/* Opción múltiple */
 .multiple-group {
   margin-left: 20px;
 }

@@ -1,4 +1,4 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+﻿import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
@@ -23,7 +23,7 @@ export class DirectivoGuard implements CanActivate {
       return false;
     }
 
-    // Usar SecurityService para determinar autenticación y rol
+    // Usar SecurityService para determinar autenticacion y rol
     if (this.securityService.isAuthenticated()) {
       const role = this.securityService.getUserRole();
       if (role === 'directivo' || role === 'director') {

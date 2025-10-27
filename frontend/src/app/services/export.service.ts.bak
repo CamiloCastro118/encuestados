@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { EncuestasService, Encuesta, RespuestaCompleta, Usuario } from './encuestas.service';
 
@@ -108,7 +108,7 @@ export class ExportService {
               csvContent += fila.join(sep) + '\n';
             });
 
-            // Si no hay respuestas y se incluyen vacias
+            // Si no hay respuestas y se incluyen vacías
             if (respuestasEncuesta.length === 0 && configuracion.incluirRespuestasVacias) {
               let filaVacia = new Array(encabezados.length).fill('');
               csvContent += filaVacia.join(sep) + '\n';
@@ -144,14 +144,14 @@ export class ExportService {
           let csvContent = '';
           const sep = ',';
 
-          // Informacion general
+          // Información general
           csvContent += `# Estadísticas de Encuesta\n`;
           csvContent += `# Título,${this.escaparCSV(estadisticas.titulo)}\n`;
           csvContent += `# Total Respuestas,${estadisticas.totalRespuestas}\n`;
           csvContent += `# Tiempo Promedio Respuesta,${Math.round(estadisticas.tiempoPromedioRespuesta)} segundos\n`;
           csvContent += `\n`;
 
-          // Analisis por pregunta
+          // Análisis por pregunta
           csvContent += `Pregunta_ID,Texto_Pregunta,Tipo,Total_Respuestas,Análisis\n`;
 
           estadisticas.preguntasAnalisis.forEach((analisis: any) => {
@@ -267,10 +267,10 @@ export class ExportService {
       valor = String(valor);
     }
     
-    // Escapar comillas dobles duplicandolas
+    // Escapar comillas dobles duplicándolas
     valor = valor.replace(/"/g, '""');
     
-    // Envolver en comillas si contiene separadores, saltos de linea o comillas
+    // Envolver en comillas si contiene separadores, saltos de línea o comillas
     if (valor.includes(',') || valor.includes(';') || valor.includes('\n') || valor.includes('\r') || valor.includes('"')) {
       valor = `"${valor}"`;
     }

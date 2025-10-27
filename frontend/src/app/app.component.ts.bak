@@ -1,4 +1,4 @@
-﻿// Herramientas basicas de Angular
+// Herramientas basicas de Angular
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, Router, NavigationEnd } from '@angular/router';
@@ -30,12 +30,12 @@ export class AppComponent implements OnInit {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
-      // Mostrar navbar solo en paginas autenticadas que no sean home ni login
+      // Mostrar navbar solo en páginas autenticadas que no sean home ni login
       this.showNavbar = this.shouldShowNavbar(event.url);
     });
 
-    // Restaurar sesion (si existe) y verificar ruta inicial
-    // Esto asegura que la app cargue el estado del usuario antes de decidir que mostrar.
+    // Restaurar sesión (si existe) y verificar ruta inicial
+    // Esto asegura que la app cargue el estado del usuario antes de decidir qué mostrar.
     try {
       // restoreSession es seguro con SSR (ver SecurityService)
       (this.securityService as any).restoreSession?.();
@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
       console.warn('restoreSession failed:', e);
     }
 
-    // Si la URL inicial esta vacia o '/', navegar a /home para mostrar la pantalla de inicio
+    // Si la URL inicial está vacía o '/', navegar a /home para mostrar la pantalla de inicio
     const currentUrl = this.router.url || '/';
     if (currentUrl === '/' || currentUrl === '') {
       // Usar navigateByUrl para evitar apilar rutas
@@ -61,14 +61,13 @@ export class AppComponent implements OnInit {
       return false;
     }
     
-    // En home, mostrar navbar solo si esta autenticado
+    // En home, mostrar navbar solo si está autenticado
     if (url === '/home' || url === '/' || url === '') {
       return this.securityService.isAuthenticated();
     }
     
-    // En otras paginas protegidas, mostrar si esta autenticado
+    // En otras páginas protegidas, mostrar si está autenticado
     return this.securityService.isAuthenticated() && 
            (url.includes('/encuestas') || url.includes('/administrador') || url.includes('/directivo'));
   }
 }
-

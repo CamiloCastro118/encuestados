@@ -1,4 +1,4 @@
-﻿<div class="encuestas-container">
+<div class="encuestas-container">
   
   <!-- Mensaje de estado -->
   <div *ngIf="mensaje" class="mensaje" [class]="'mensaje-' + tipoMensaje">
@@ -11,7 +11,7 @@
     <p>Procesando...</p>
   </div>
 
-  <!-- Informacion de sesion -->
+  <!-- Información de sesion -->
   <div *ngIf="sessionId" class="session-info">
     <small>Sesión activa | Tiempo: {{ getTiempoTranscurrido() }}</small>
   </div>
@@ -91,7 +91,7 @@
           </div>
         </div>
         
-        <!-- Pregunta de opcion multiple -->
+        <!-- Pregunta de opción multiple -->
         <div *ngIf="pregunta.tipo === 'multiple'" class="multiple-group">
           <label *ngFor="let opcion of pregunta.opciones" class="opcion-label">
             <input 

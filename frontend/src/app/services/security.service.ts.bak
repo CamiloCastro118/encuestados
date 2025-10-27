@@ -1,4 +1,4 @@
-﻿import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Observable, of } from 'rxjs';
 
@@ -254,7 +254,7 @@ export class SecurityService {
       }
     }
 
-    // Verificar respuestas identicas
+    // Verificar respuestas idénticas
     const respuestasUnicas = new Set(textos);
     if (textos.length > 1 && respuestasUnicas.size === 1) {
       return {
@@ -319,7 +319,7 @@ export class SecurityService {
     const tiempos = this.respuestasRecientes.get(key) || [];
     tiempos.push(new Date());
     
-    // Mantener solo los ultimos 5 tiempos
+    // Mantener solo los últimos 5 tiempos
     if (tiempos.length > 5) {
       tiempos.splice(0, tiempos.length - 5);
     }
@@ -327,7 +327,7 @@ export class SecurityService {
     this.respuestasRecientes.set(key, tiempos);
   }
 
-  // Contar respuestas de IP en las ultimas 24 horas
+  // Contar respuestas de IP en las últimas 24 horas
   private contarRespuestasIPHoy(ipAddress: string): number {
     const hace24Horas = new Date(Date.now() - 24 * 60 * 60 * 1000);
     let contador = 0;
@@ -345,13 +345,13 @@ export class SecurityService {
   private bloquearIP(ipAddress: string): void {
     this.ipsBloqueadas.add(ipAddress);
     
-    // Desbloquear automaticamente despues del tiempo configurado
+    // Desbloquear automáticamente después del tiempo configurado
     setTimeout(() => {
       this.ipsBloqueadas.delete(ipAddress);
     }, this.CONFIG.TIEMPO_BLOQUEO_IP);
   }
 
-  // Generar ID de sesion
+  // Generar ID de sesión
   private generarSessionId(userId: number, ipAddress: string): string {
     const timestamp = Date.now().toString();
     const random = Math.random().toString(36).substring(2);
@@ -379,7 +379,7 @@ export class SecurityService {
     });
   }
 
-  // Obtener estadisticas de seguridad
+  // Obtener estadísticas de seguridad
   obtenerEstadisticasSeguridad(): Observable<any> {
     return of({
       sesionesActivas: this.sesionesActivas.size,
@@ -402,7 +402,7 @@ export class SecurityService {
     return Array.from(this.ipsBloqueadas);
   }
 
-  // ========== MeTODOS DE AUTENTICACIoN ==========
+  // ========== MÉTODOS DE AUTENTICACIÓN ==========
   
   private currentUser: any = null;  // Usuario actual autenticado
   private userRole: string = '';    // Rol del usuario actual
@@ -433,10 +433,10 @@ export class SecurityService {
     return this.isAuthenticated() && this.userRole === 'user';
   }
 
-  // Iniciar sesion de usuario
+  // Iniciar sesión de usuario
   login(usuario: string, password: string): Observable<any> {
     return new Observable(observer => {
-      // Simular validacion de credenciales
+      // Simular validación de credenciales
       if (this.validarCredenciales(usuario, password)) {
   // Determinar rol basado en el usuario y normalizar a los valores que esperan los guards
   const role = this.determinarRol(usuario);
@@ -451,13 +451,13 @@ export class SecurityService {
           loginTime: new Date()
         };
 
-        // Guardar token y sesion en localStorage solo si estamos en el navegador
+        // Guardar token y sesión en localStorage solo si estamos en el navegador
         if (this.isBrowser()) {
           const token = this.generarToken(usuario, this.userRole);
           localStorage.setItem('userToken', token);
           localStorage.setItem('userRole', this.userRole);
           localStorage.setItem('userName', usuario);
-          // Guardar una marca de sesion que usan los guards (userSession)
+          // Guardar una marca de sesión que usan los guards (userSession)
           try {
             localStorage.setItem('userSession', JSON.stringify({ id: this.currentUser.id, usuario }));
           } catch (e) {
@@ -481,7 +481,7 @@ export class SecurityService {
     });
   }
 
-  // Cerrar sesion
+  // Cerrar sesión
   logout(): void {
     this.currentUser = null;
     this.userRole = '';
@@ -489,7 +489,7 @@ export class SecurityService {
       localStorage.removeItem('userToken');
       localStorage.removeItem('userRole');
       localStorage.removeItem('userName');
-      // Tambien eliminar la marca de sesion usada por los guards
+      // También eliminar la marca de sesión usada por los guards
       try {
         localStorage.removeItem('userSession');
       } catch (e) {
@@ -498,7 +498,7 @@ export class SecurityService {
     }
   }
 
-  // Obtener informacion del usuario actual
+  // Obtener información del usuario actual
   getCurrentUser(): any {
     if (!this.isAuthenticated()) {
       return null;
@@ -515,7 +515,7 @@ export class SecurityService {
     return this.userRole || localStorage.getItem('userRole') || '';
   }
 
-  // Validar credenciales (simulado - en produccion seria contra una API)
+  // Validar credenciales (simulado - en producción sería contra una API)
   private validarCredenciales(usuario: string, password: string): boolean {
     // Credenciales de prueba
     const credenciales = [
@@ -543,13 +543,13 @@ export class SecurityService {
     }
   }
 
-  // Generar token simple (en produccion usar JWT)
+  // Generar token simple (en producción usar JWT)
   private generarToken(usuario: string, role: string): string {
     const payload = btoa(JSON.stringify({ usuario, role, timestamp: Date.now() }));
     return `token_${payload}`;
   }
 
-  // Verificar y restaurar sesion desde localStorage
+  // Verificar y restaurar sesión desde localStorage
   restoreSession(): void {
     if (!this.isBrowser()) return;
     
@@ -557,7 +557,7 @@ export class SecurityService {
     const role = localStorage.getItem('userRole');
     const userName = localStorage.getItem('userName');
     const userSession = localStorage.getItem('userSession');
-    // Solo restauramos si ademas existe la marca `userSession` que usan los guards.
+    // Sólo restauramos si además existe la marca `userSession` que usan los guards.
     // Esto evita que tokens viejos o datos parciales auto-autenticen la app en la vista Home.
     if (token && role && userName && userSession) {
       this.userRole = role;

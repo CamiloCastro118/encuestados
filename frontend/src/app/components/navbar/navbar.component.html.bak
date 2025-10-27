@@ -1,13 +1,13 @@
-﻿<nav class="navbar" *ngIf="isAuthenticated() && currentUser">
+<nav class="navbar" *ngIf="isAuthenticated() && currentUser">
   <div class="navbar-container">
     
-    <!-- Logo y titulo -->
+    <!-- Logo y título -->
     <div class="navbar-brand" (click)="navigate('/home')">
       <div class="brand-icon">📊</div>
       <span class="brand-text">Sistema de Encuestas</span>
     </div>
 
-    <!-- Menu desktop -->
+    <!-- Menú desktop -->
     <div class="navbar-menu desktop-menu">
       <a 
         *ngFor="let item of visibleMenuItems" 
@@ -19,16 +19,16 @@
       </a>
     </div>
 
-    <!-- Usuario y menu movil -->
+    <!-- Usuario y menú móvil -->
     <div class="navbar-actions">
       
-      <!-- Boton de cerrar sesion prominente -->
+      <!-- Botón de cerrar sesión prominente -->
       <button class="logout-main-btn" (click)="logout()" title="Cerrar Sesión">
         <span class="logout-icon">🚪</span>
         <span class="logout-text">Salir</span>
       </button>
       
-      <!-- Informacion del usuario -->
+      <!-- Información del usuario -->
       <div class="user-info">
         <div class="user-avatar">
           <img [src]="currentUser.avatar" [alt]="currentUser.nombre">
@@ -42,7 +42,7 @@
         </div>
       </div>
 
-      <!-- Menu desplegable del usuario -->
+      <!-- Menú desplegable del usuario -->
       <div class="user-menu">
         <button class="user-menu-btn" (click)="toggleMenu()">
           <span class="menu-dots">⋮</span>
@@ -83,7 +83,7 @@
         </div>
       </div>
 
-      <!-- Boton de menu movil -->
+      <!-- Botón de menú móvil -->
       <button class="mobile-menu-btn" (click)="toggleMenu()">
         <span class="hamburger" [class.open]="isMenuOpen">
           <span></span>
@@ -94,7 +94,7 @@
     </div>
   </div>
 
-  <!-- Menu movil -->
+  <!-- Menú móvil -->
   <div class="mobile-menu" [class.open]="isMenuOpen">
     <div class="mobile-menu-content">
       <div class="mobile-user-info">
@@ -128,7 +128,7 @@
   </div>
 </nav>
 
-<!-- Overlay para cerrar menus -->
+<!-- Overlay para cerrar menús -->
 <div 
   *ngIf="isMenuOpen" 
   class="menu-overlay" 

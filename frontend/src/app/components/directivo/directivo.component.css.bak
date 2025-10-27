@@ -1,4 +1,4 @@
-﻿.directivo-container {
+.directivo-container {
   display: flex;
   min-height: 100vh;
   background: var(--off-white);
@@ -160,7 +160,7 @@
   opacity: 0.9;
 }
 
-/* areas rapido */
+/* Áreas rápido */
 .areas-rapido {
   margin-bottom: 30px;
 }
@@ -225,7 +225,7 @@
   font-size: 12px;
 }
 
-/* Acciones rapidas */
+/* Acciones rápidas */
 .acciones-rapidas h3 {
   color: #2c3e50;
   margin-bottom: 20px;
@@ -417,7 +417,7 @@
   font-size: 12px;
 }
 
-/* Metricas */
+/* Métricas */
 .metricas-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -537,7 +537,7 @@
   letter-spacing: 0.5px;
 }
 
-/* Configuracion */
+/* Configuración */
 .config-form {
   background: white;
   padding: 30px;

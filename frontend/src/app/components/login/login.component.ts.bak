@@ -1,4 +1,4 @@
-﻿import { Component, OnInit } from '@angular/core';  // Herramienta para crear una pagina
+import { Component, OnInit } from '@angular/core';  // Herramienta para crear una pagina
 import { CommonModule } from '@angular/common';  // Funciones basicas que se usan siempre
 import { FormsModule } from '@angular/forms';  // Para poder usar formularios con inputs
 import { Router } from '@angular/router';  // Para cambiar de pagina
@@ -25,11 +25,11 @@ export class LoginComponent implements OnInit {
     private router: Router,              // Router para cambiar de pagina
     private securityService: SecurityService  // Servicio de seguridad
   ) {
-    // No hacer nada aqui que dependa del navegador
+    // No hacer nada aquí que dependa del navegador
   }
 
   ngOnInit() {
-    // Verificar si ya hay una sesion activa al cargar (solo en el navegador)
+    // Verificar si ya hay una sesión activa al cargar (solo en el navegador)
     this.securityService.restoreSession();
     if (this.securityService.isAuthenticated()) {
       this.redirectToUserHome();
@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
           if (response.success) {
             console.log('Login exitoso:', response.user);
             
-            // Guardar usuario si eligio recordar (solo en el navegador)
+            // Guardar usuario si eligió recordar (solo en el navegador)
             if (typeof window !== 'undefined' && localStorage) {
               if (this.recordarUsuario) {
                 localStorage.setItem('rememberedUser', this.usuario);
@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
               }
             }
 
-            // Redirigir segun el rol del usuario
+            // Redirigir según el rol del usuario
             this.redirectToUserHome();
           } else {
             this.errorMessage = response.message || 'Error en el login';
@@ -85,7 +85,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  // Redirigir al usuario segun su rol
+  // Redirigir al usuario según su rol
   private redirectToUserHome(): void {
     const role = this.securityService.getUserRole();
     
@@ -104,7 +104,7 @@ export class LoginComponent implements OnInit {
   }
 
   onForgotPassword() {
-    // Cuando hace clic en "Olvidaste tu contrasena"
+    // Cuando hace clic en "Olvidaste tu contraseña"
     console.log('Recuperar contraseña para:', this.usuario);
     // Aqui iria la logica para enviar un email de recuperacion
     alert('Funcionalidad de recuperación de contraseña no implementada aún.');

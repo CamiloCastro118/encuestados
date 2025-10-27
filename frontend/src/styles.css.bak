@@ -1,4 +1,4 @@
-﻿/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
 
 :root {
  
@@ -35,7 +35,7 @@
   --border-blue: 1px solid var(--light-blue);
 }
 
-/* Reset basico para mantener consistencia */
+/* Reset básico para mantener consistencia */
 * {
   box-sizing: border-box;
 }
@@ -136,4 +136,3 @@ textarea:focus {
   border-color: var(--secondary-blue);
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
-
