@@ -1,4 +1,4 @@
-// Controlador para gestión de encuestas
+// Controlador para gestion de encuestas
 
 // Datos de ejemplo (temporales)
 let encuestas = [

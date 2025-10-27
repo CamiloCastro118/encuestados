@@ -1,26 +1,26 @@
 # Backend - API de Encuestas
 
-Backend API desarrollado con Node.js y Express para la aplicación de encuestas.
+Backend API desarrollado con Node.js y Express para la aplicacion de encuestas.
 
-## 🛠 Tecnologías
+## 🛠 Tecnologias
 
 - **Node.js** - Runtime de JavaScript
 - **Express.js** - Framework web
-- **CORS** - Habilitación de peticiones cruzadas
+  -- **CORS** - Habilitacion de peticiones cruzadas
 - **Helmet** - Middlewares de seguridad
 - **Morgan** - Logging de peticiones HTTP
-- **Compression** - Compresión de respuestas
+  -- **Compression** - Compresion de respuestas
 
 ## 📁 Estructura del Proyecto
 
 ```
 backend/
 ├── src/
-│   ├── controllers/        # Lógica de negocio
+│   ├── controllers/        # Logica de negocio
 │   │   ├── authController.js
 │   │   ├── encuestasController.js
 │   │   └── adminController.js
-│   ├── routes/            # Definición de rutas
+│   ├── routes/            # Definicion de rutas
 │   │   ├── auth.js
 │   │   ├── encuestas.js
 │   │   └── admin.js
@@ -33,7 +33,7 @@ backend/
 └── README.md
 ```
 
-## 🚀 Instalación y Configuración
+## 🚀 Instalacion y Configuracion
 
 ### 1. Instalar dependencias
 
@@ -46,7 +46,7 @@ npm install
 
 ```bash
 cp .env.example .env
-# Editar .env con tu configuración
+# Editar .env con tu configuracion
 ```
 
 ### 3. Ejecutar en desarrollo
@@ -63,11 +63,12 @@ npm start
 
 ## 📡 API Endpoints
 
-### Rutas de Autenticación (`/api/auth`)
+### Rutas de Autenticacion (`/api/auth`)
 
-- `POST /api/auth/login` - Iniciar sesión
-- `POST /api/auth/register` - Registrar usuario
-- `POST /api/auth/logout` - Cerrar sesión
+-- `POST /api/auth/login` - Iniciar sesion
+-- `POST /api/auth/register` - Registrar usuario
+-- `POST /api/auth/logout` - Cerrar sesion
+
 - `GET /api/auth/validate` - Validar token
 
 ### Rutas de Encuestas (`/api/encuestas`)
@@ -81,7 +82,7 @@ npm start
 
 ### Rutas Administrativas (`/api/admin`)
 
-- `GET /api/admin/dashboard` - Estadísticas del dashboard
+- `GET /api/admin/dashboard` - Estadisticas del dashboard
 - `GET /api/admin/users` - Lista de usuarios
 - `GET /api/admin/export/:format` - Exportar datos (csv/json)
 
@@ -124,11 +125,11 @@ curl -X POST http://localhost:3000/api/encuestas \
   -H "Authorization: Bearer tu_token_aqui" \
   -d '{
     "titulo": "Nueva Encuesta",
-    "descripcion": "Descripción de la encuesta",
+  "descripcion": "Descripcion de la encuesta",
     "preguntas": [
       {
         "id": 1,
-        "texto": "¿Cómo calificarías el servicio?",
+  "texto": "¿Como calificarias el servicio?",
         "tipo": "escala",
         "opciones": ["1", "2", "3", "4", "5"]
       }
@@ -141,24 +142,8 @@ curl -X POST http://localhost:3000/api/encuestas \
 - **Helmet**: Configuración de headers de seguridad
 - **CORS**: Control de acceso entre dominios
 - **Rate Limiting**: Control de frecuencia de peticiones (configurado)
-- **Validación de entrada**: Validación de datos de entrada
+  -- **Validacion de entrada**: Validacion de datos de entrada
 - **Variables de entorno**: Configuración sensible en archivos .env
-
-## 🔄 Próximas Mejoras
-
-- [ ] Integración con base de datos (MongoDB/PostgreSQL)
-- [ ] JWT para autenticación más robusta
-- [ ] Validación de datos con express-validator
-- [ ] Tests unitarios e integración
-- [ ] Rate limiting implementado
-- [ ] Logging avanzado
-- [ ] Documentación con Swagger
-- [ ] Middleware de autenticación y autorización
-- [ ] Cifrado de contraseñas con bcrypt
-
-## 🌐 CORS y Frontend
-
-El backend está configurado para aceptar peticiones desde:
 
 - `http://localhost:4200` (Angular development server)
 
