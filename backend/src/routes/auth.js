@@ -3,7 +3,7 @@ import { login, register, logout, validateToken } from '../controllers/authContr
 
 const router = express.Router();
 
-// Rutas de autenticación
+// Rutas de autenticacion
 router.post('/login', login);
 router.post('/register', register);
 router.post('/logout', logout);

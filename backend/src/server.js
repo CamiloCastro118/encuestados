@@ -44,7 +44,7 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Ruta raíz
+// Ruta raiz
 app.get('/', (req, res) => {
   res.json({
     message: 'API de Encuestas - Backend',

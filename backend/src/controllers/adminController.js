@@ -2,7 +2,7 @@
 
 export const getDashboardStats = (req, res) => {
   try {
-    // Estadísticas simuladas
+  // Estadisticas simuladas
     const stats = {
       totalEncuestas: 15,
       encuestasActivas: 8,
@@ -29,7 +29,7 @@ export const getDashboardStats = (req, res) => {
 
 export const getAllUsers = (req, res) => {
   try {
-    // Datos simulados de usuarios
+  // Datos simulados de usuarios
     const users = [
       {
         id: 1,
